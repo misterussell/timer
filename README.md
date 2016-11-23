@@ -77,6 +77,7 @@
       }
       ```
     4. Location
+    
         ```javascript
           location = {
             name: 'home',
