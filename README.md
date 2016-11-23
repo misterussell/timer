@@ -43,16 +43,18 @@
       - A collection of frequently used Routes that utilizes a locations from the Locations collection
   - *Models*
     1. User Defined Timer
-      ```
+
+      ```javascript
       timer = {
         timerValue : '',
         tags: [], // tags can be added to help sort timers
-        timerLinks: [] // user can add pertinent links to timers - i.e.
+        timerLinks: [], // user can add pertinent links to timers - i.e.
         timerSound: 'soundByte.wav' // selectable sounds
       }
       ```
     2. Single Timer Template
-      ```
+
+      ```javascript
       timerTemplate = {
         timerValues: [5, 10, 25, 45, 60] // value of minutes
         tags: ['mindfulness', 'mobility', 'productivity', x] // where x = a tag that can be defined in the user's profile
@@ -60,7 +62,8 @@
       }
       ```
     3. Multi-Timer Template
-      ```
+
+      ```javascript
       multiTimerTemplate = {
         timers = [
           {
@@ -73,18 +76,18 @@
           {...}] /// where ... is a set number of timer objects
       }
       ```
-      4. Location
-        ```
+    4. Location
+        ```javascript
           location = {
             name: 'home',
             longitude: '30.2672 N',
             latitiude: '97.7431 W',
 
           },
-          getLocate() {...} // where ... is the ajax request to retrieve Geolocation from google API
+          getGeolocation() {...} // where ... is the ajax request to retrieve Geolocation from google API
         ```
-      5. Routes
-        ```
+    5. Routes
+        ```javascript
           route = {
             startPoint: 'location data',
             endPoint: 'endPoint data'
