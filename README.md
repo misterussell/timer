@@ -77,7 +77,7 @@
       }
       ```
     4. Location
-    
+
         ```javascript
           location = {
             name: 'home',
@@ -88,6 +88,7 @@
           getGeolocation() {...} // where ... is the ajax request to retrieve Geolocation from google API
         ```
     5. Routes
+
         ```javascript
           route = {
             startPoint: 'location data',
