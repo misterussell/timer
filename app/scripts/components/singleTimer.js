@@ -1,6 +1,9 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import SelectButton from './buttons/selectButton';
+
+import store from '../store';
 
 export default React.createClass({
   render() {
@@ -13,7 +16,7 @@ export default React.createClass({
     );
   },
   handleClick() {
-    //when selecting the timer from the list, this callBack should create a timer to be viewed in the browser
-    console.log('call back registered for singleTimer');
+    //when selecting the timer from the list, this callBack should create a timer to be viewed in the browser with the predefined values
+    browserHistory.push(`/timers/${this.props.timer.objectId}`);
   }
 });
