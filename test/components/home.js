@@ -12,8 +12,12 @@ describe('home component', () => {
     home = shallow(<Home />);
   });
 
+  it('should output a div', () => {
+    expect(home).to.have.tagName('div');
+  });
+
   it('should render a persistent Nav component', () => {
-    expect(home).to.contain(<Nav />);
+    expect(home).to.have.descendants(<Nav auth={ true } />);
   });
 
 });

@@ -2,13 +2,11 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import { browserHistory } from 'react-router';
 
-import router from '../router';
-
 export default Backbone.Model.extend({
   initialize() {
     if (window.localStorage['user-token']) {
 			this.set({auth: true, 'user-token': window.localStorage['user-token']});
-      browserHistory.push('/startTimer');
+      browserHistory.push('/selectTimer');
 		}
   },
   idAttribute: '_id',
@@ -46,7 +44,7 @@ export default Backbone.Model.extend({
           window.localStorage.setItem('userName', response.get('userName'));
           window.localStorage.setItem('ownerId', response.get('ownerId'));
           this.set({authenticated: true});
-          browserHistory.push('/startTimer');
+          browserHistory.push('selectTimer');
         },
         error: function(response) {
           alert('Log in not successful. Please try again.');
