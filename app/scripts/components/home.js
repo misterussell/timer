@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import Nav from './nav';
 
@@ -10,7 +11,7 @@ export default React.createClass({
       auth: store.user.get('auth')
     };
   },
-  componentWillMount() {
+  componentDidMount() {
     store.user.on('update change', () => {
       this.setState({auth: store.user.get('auth')});
     });

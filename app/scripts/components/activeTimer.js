@@ -12,19 +12,19 @@ export default React.createClass({
       interval: null,
       hours: 0,
       minutes: 0,
-      seconds: 0
+      seconds: 0,
     };
   },
   componentDidMount() {
-    let count = (this.state.timer.timerValue * 60);
+    let count = ((this.state.timer.timerValue * 60) * 1000);
     this.calcRemainder(count);
   },
   render() {
     return (
       <div className="active-timer">
-          <h2 className="hours"> { this.state.hours } </h2>
-          <h2 className="minutes"> { this.state.minutes } </h2>
-          <h2 className="seconds"> {this.state.seconds } </h2>
+          <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
+          <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
+          <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
           {
             <TimerButtons
             startCallback={ this.startTimer }
@@ -34,7 +34,7 @@ export default React.createClass({
     );
   },
   updateTimer() {
-    let updateCount = this.state.count - 1;
+    let updateCount = this.state.count - 1000;
     return this.calcRemainder(updateCount);
   },
   startTimer() {
@@ -45,12 +45,14 @@ export default React.createClass({
   },
   calcRemainder(count) {
     // this function will calculate the remaining time for the current count value
-    //
+    let seconds = Math.floor((this.state.count / 1000) % 60);
+    let minutes = Math.floor(((this.state.count/1000)/60) % 60);
+    let hours = Math.floor( this.state.count/(1000*60*60*24));
     return this.setState(
       { count,
-        hours,
+        seconds,
         minutes,
-        seconds
+        hours
       });
   }
 });

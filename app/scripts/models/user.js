@@ -43,7 +43,7 @@ export default Backbone.Model.extend({
           window.localStorage.setItem('user-token', response.get('user-token'));
           window.localStorage.setItem('userName', response.get('userName'));
           window.localStorage.setItem('ownerId', response.get('ownerId'));
-          this.set({authenticated: true});
+          this.set({auth: true});
           browserHistory.push('selectTimer');
         },
         error: function(response) {
@@ -58,6 +58,7 @@ export default Backbone.Model.extend({
 				this.clear();
 				window.localStorage.clear();
         this.set({authenticated: false});
+        browserHistory.push('login');
 			}
 		});
   }

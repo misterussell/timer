@@ -12,7 +12,7 @@
   - Logged in User can create a basic timer that runs in the timer page
     - This timer will have a unique URL that is shareable
 
-# Wireframes
+## Wireframes
 
   - [MVP Wireframes](/app/assets/images/timermvpwireframes.jpg)
 

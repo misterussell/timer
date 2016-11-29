@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import store from '../store';
 export default React.createClass({
   render() {
     let links;
@@ -28,6 +29,6 @@ export default React.createClass({
   },
   handleLogout(e) {
     e.preventDefault();
-    console.log('Log Out will occur here');
+    store.user.logout();
   }
 });
