@@ -1,3 +1,5 @@
+// Colors
+
 $color-primary-0: #5772A1;	// Main Primary color */
 $color-primary-1: #E0E6F1;
 $color-primary-2: #96A9CB;
@@ -21,3 +23,8 @@ $color-complement-1: #FFF8EC;
 $color-complement-2: #FFE4B5;
 $color-complement-3: #C7963C;
 $color-complement-4: #976710;
+
+@mixin font-main($font-size) {
+  font-family: 'Asap', sans-serif;
+  font-size: $font-size;
+}

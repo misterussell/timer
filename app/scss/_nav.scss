@@ -1,0 +1,22 @@
+.home-nav {
+  @include clearfix;
+  border-bottom: .1rem solid $color-primary-1;
+
+  .authorized-links {
+    @include clearfix;
+
+    a {
+      box-sizing: border-box;
+      display: inline-block;
+      
+      @include font-main(1rem);
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .authorized-links {
+    @include clearfix;
+    float: right;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import { Link } from 'react-router';
 
 import store from '../store';
@@ -9,6 +10,7 @@ export default React.createClass({
       links = (
         <div className="authorized-links">
           <Link to="/">Home</Link>
+          <Link to="/timers">Timers</Link>
           <Link onClick={ this.handleLogout }>Log Out</Link>
         </div>
       );
@@ -30,5 +32,9 @@ export default React.createClass({
   handleLogout(e) {
     e.preventDefault();
     store.user.logout();
+  },
+  menu(e) {
+    e.preventDefault();
+    console.log('menu will display on click')
   }
 });

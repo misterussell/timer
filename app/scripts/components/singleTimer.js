@@ -9,8 +9,8 @@ export default React.createClass({
   render() {
     return (
       <li>
-        <h2>{this.props.timer.name}</h2>
-        <h3>{this.props.timer.timerValue}</h3>
+        <h2 className="timer-name">{this.props.timer.name}</h2>
+        <h3 className="timer-value">{this.props.timer.timerValue}</h3>
         {<SelectButton callback={ this.handleClick } text={'Select'}/>}
       </li>
     );

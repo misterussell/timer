@@ -11,7 +11,8 @@ export default Backbone.Model.extend({
   },
   idAttribute: '_id',
   defaults: {
-    auth: false
+    auth: false,
+    defaultTimers: false
   },
   register(firstName, lastName, email, password, confirmPW) {
     if ( password === confirmPW ) {

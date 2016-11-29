@@ -2,6 +2,8 @@ body {
   width: 100vw;
   margin: 0 auto;
   font-size: 62.5%;
+  text-align: center;
+  @include font-main(1rem);
 }
 
 ul {
@@ -12,4 +14,13 @@ ul {
 
 img {
   max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $color-primary-4;
+
+  &:visited {
+    color: $color-primary-4;
+  }
 }

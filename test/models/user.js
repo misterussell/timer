@@ -7,6 +7,8 @@ describe('user model', () => {
   let user;
 
   beforeEach(() => {
+    User.prototype.initialize = () => {
+    };
     user = new User();
   });
 

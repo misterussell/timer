@@ -1,20 +1,53 @@
 .active-timer {
   padding: 1rem;
+  position: relative;
+  @include clearfix;
+
+  h1 {
+    color: $color-primary-1;
+    font-size: 1.5rem;
+    padding: 0;
+  }
 
   h2 {
     display: inline-block;
+    background: $color-primary-1;
+    box-sizing: border-box;
     margin: .1rem;
+    padding: .6rem;
+    border-radius: .5rem;
   }
 
   .hours::after {
     content: 'h';
+    color: $color-secondary-2-3;
   }
 
   .minutes::after {
     content: 'm';
+    color: $color-secondary-2-3;
+
   }
 
   .seconds::after {
     content: 's';
+    color: $color-secondary-2-3;
+  }
+}
+
+.timer-buttons {
+  button {
+    box-sizing: border-box;
+    margin: 0.5rem auto;
+  }
+}
+
+@media (min-width: 500px) {
+  .active-timer {
+    h1 {
+      display: inline-block;
+      font-size: 2rem;
+      margin: 1rem;
+    }
   }
 }
