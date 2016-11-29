@@ -1,0 +1,22 @@
+.login-register {
+  width: 50%;
+  max-width: 250px;
+  margin: 0 auto;
+  padding-top: 1rem;
+
+  input {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 0.25rem;
+    margin: 0.25rem;
+    background: $color-primary-1-opaque;
+    border: none;
+    color: $color-primary-4;
+  }
+
+  #submit {
+    background: $color-secondary-2-2;
+    color: $color-complement-1;
+  }
+}

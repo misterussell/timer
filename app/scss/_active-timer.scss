@@ -10,12 +10,14 @@
   }
 
   h2 {
+    height: 100%;
     display: inline-block;
-    background: $color-primary-1;
+    // background: $color-primary-1;
     box-sizing: border-box;
     margin: .1rem;
     padding: .6rem;
     border-radius: .5rem;
+    background-image: linear-gradient(180deg, $color-primary-1 50%, $color-secondary-2-1 50%);
   }
 
   .hours::after {

@@ -62,5 +62,8 @@ export default Backbone.Model.extend({
         browserHistory.push('login');
 			}
 		});
+  },
+  newPassword(email) {
+    console.log(email, 'retrieved');
   }
 });

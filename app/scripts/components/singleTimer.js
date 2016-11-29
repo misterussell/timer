@@ -8,7 +8,7 @@ import store from '../store';
 export default React.createClass({
   render() {
     return (
-      <li>
+      <li className="timer-template">
         <h2 className="timer-name">{this.props.timer.name}</h2>
         <h3 className="timer-value">{this.props.timer.timerValue}</h3>
         {<SelectButton callback={ this.handleClick } text={'Select'}/>}

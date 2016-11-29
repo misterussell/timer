@@ -2,5 +2,35 @@
   h2, h3 {
     display: inline-block;
     margin: .5rem;
+    font-size: 1.5rem;
+  }
+
+  .timer-titles {
+    color: $color-secondary-1-4;
+  }
+
+  .timer-template {
+    box-sizing: border-box;
+    border: .1rem solid $color-primary-2;
+    margin: 0 auto;
+    width: 60%;
+    background: $color-secondary-2-1;
+
+    .select {
+      display: inline-block;
+      box-sizing: border-box;
+      margin: 0.5rem;
+      @include font-main(1.5rem);
+      height: 100%;
+      border: none;
+      background: $color-secondary-1-2;
+      color: $color-complement-1;
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .timer-template {
+    max-width: 500px;
   }
 }

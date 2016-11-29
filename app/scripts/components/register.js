@@ -5,7 +5,7 @@ import store from '../store';
 export default React.createClass({
   render() {
     return (
-      <form className="login-signup" onSubmit={this.handleSubmit}>
+      <form className="login-register" onSubmit={this.handleSubmit}>
         <input type="text" ref="firstName" className="new-form-input" id="first-name" placeholder="First Name" />
         <input type="text" ref="lastName" className="new-form-input" id="last-name" placeholder="Last Name" />
         <input type="email" ref="email" className="new-form-input" id="email" placeholder="Email" />

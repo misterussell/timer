@@ -9,14 +9,20 @@ export default React.createClass({
     if (this.props.auth) {
       links = (
         <div className="authorized-links">
-          <Link to="/">Home</Link>
-          <Link to="/timers">Timers</Link>
-          <Link onClick={ this.handleLogout }>Log Out</Link>
+          <Link to="/">
+            <i className="fa fa-home" aria-hidden="true"></i>
+          </Link>
+          <Link to="/timers">
+            <i className="fa fa-clock-o" aria-hidden="true"></i>
+          </Link>
+          <Link onClick={ this.handleLogout }>
+            <i className="fa fa-sign-out" aria-hidden="true"></i>
+          </Link>
         </div>
       );
     } else {
       links = (
-        <div className="authorized-links">
+        <div className="authorized-links width-control">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
         </div>
@@ -25,6 +31,7 @@ export default React.createClass({
 
     return (
       <nav className="home-nav">
+        <img src="../../assets/images/logo.svg" className="logo" />
         {links}
       </nav>
     );

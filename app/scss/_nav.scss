@@ -1,22 +1,57 @@
 .home-nav {
+  border-bottom: 0.1rem solid $color-primary-1;
   @include clearfix;
-  border-bottom: .1rem solid $color-primary-1;
+
+  .logo {
+    width: 2.25rem;
+    margin: .25rem;
+  }
 
   .authorized-links {
+    border-top: 0.1rem solid $color-primary-1;
     @include clearfix;
 
     a {
       box-sizing: border-box;
       display: inline-block;
-      
+      padding: 1rem;
       @include font-main(1rem);
+      background: $color-secondary-2-1;
+      width: 33.33%;
+
+      &:nth-child(2n) {
+        background: $color-primary-1;
+      }
     }
+    
+  &.width-control {
+    a {
+      width: 50%;
+    }
+  }
   }
 }
 
 @media (min-width: 500px) {
-  .authorized-links {
-    @include clearfix;
-    float: right;
+
+  .home-nav {
+    border-top: 0;
+
+    .authorized-links {
+      @include clearfix;
+      float: right;
+
+      a {
+        padding: 1rem 2rem;
+        width: auto;
+      }
+    }
+
+    .logo {
+      width: 2.25rem;
+      margin: 0.45rem;
+      margin-left: 1rem;
+      float: left;
+    }
   }
 }
