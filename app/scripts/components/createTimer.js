@@ -40,7 +40,8 @@ export default React.createClass({
           ref="note"
           className="note"
           placeholder="What's this timer for?" />
-        <input type="submit" id="submit" value="Submit" />
+        <input type="submit" id="submit" value="Start Timer" />
+        <input type="button" id="save" value="Save & Start" onClick={ this.handleSave }/>
       </form>
     );
   },
@@ -55,11 +56,11 @@ export default React.createClass({
   },
   handleSubmit(e) {
     e.preventDefault();
-    let title = this.refs.title.value;
-    this.setState({
-      title,
-      note: this.refs.note.value
-    });
-    return store.timer.createTimer(this.state);
+    return store.timer.setupTimer(this.state, this.refs.title, this.refs.note);
+  },
+  handleSave(e) {
+    e.preventDefault();
+    console.log('this timer will be created and saved');
+    return store.timer.saveTimer(this.state);
   }
 });

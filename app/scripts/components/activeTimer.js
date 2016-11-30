@@ -16,7 +16,9 @@ export default React.createClass({
     };
   },
   componentDidMount() {
+    // count is a millisecond value for added continuity with the std value of setInterval
     let count = ((this.state.timer.timerValue * 60) * 1000);
+    console.log(this.state.timer);
     this.calcRemainder(count);
   },
   componentWillUnmount() {
@@ -45,18 +47,18 @@ export default React.createClass({
   },
   startTimer() {
     if (!this.state.interval) {
-      this.setState({interval: setInterval(this.updateTimer, 1000)});
+      this.setState({ interval: setInterval(this.updateTimer, 1000) });
     }
   },
   pauseTimer() {
     clearInterval(this.state.interval);
-    this.setState({interval: null});
+    this.setState({ interval: null });
   },
   calcRemainder(count) {
     // this function will calculate the remaining time for the current count value
-    let seconds = Math.floor((this.state.count / 1000) % 60);
-    let minutes = Math.floor(((this.state.count/1000)/60) % 60);
-    let hours = Math.floor( this.state.count/(1000*60*60*24));
+    let seconds = Math.floor((count / 1000) % 60);
+    let minutes = Math.floor(((count/1000)/60) % 60);
+    let hours = Math.floor(count/(1000*60*60*24));
     return this.setState(
       { count,
         seconds,
