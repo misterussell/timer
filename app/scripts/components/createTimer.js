@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import NumberInput from './numberInput';
 
@@ -7,8 +8,6 @@ import store from '../store';
 export default React.createClass({
   getInitialState() {
     return {
-      title: null,
-      note: null,
       hours: '',
       minutes: '',
       seconds: ''
@@ -56,11 +55,22 @@ export default React.createClass({
   },
   handleSubmit(e) {
     e.preventDefault();
-    return store.timer.setupTimer(this.state, this.refs.title, this.refs.note);
+    let tempTimer = store.timer.setupTimer(
+      this.state,
+      this.refs.title.value,
+      this.refs.note.value);
+    return store.timers.temporaryTimers.concat([tempTimer]);
   },
   handleSave(e) {
     e.preventDefault();
-    console.log('this timer will be created and saved');
-    return store.timer.saveTimer(this.state);
+    return store.timer.saveTimer(
+      this.state,
+      this.refs.title.value,
+      this.refs.note.value
+    ).then((link) => {
+      browserHistory.push(link);
+    }).catch((response) => {
+      console.log(response,'Testing needed');
+    });
   }
 });

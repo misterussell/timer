@@ -15,10 +15,12 @@ export default React.createClass({
       seconds: 0,
     };
   },
+  componentWillMount() {
+    console.log(this.props.params);
+  },
   componentDidMount() {
     // count is a millisecond value for added continuity with the std value of setInterval
     let count = ((this.state.timer.timerValue * 60) * 1000);
-    console.log(this.state.timer);
     this.calcRemainder(count);
   },
   componentWillUnmount() {

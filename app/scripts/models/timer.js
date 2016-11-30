@@ -1,4 +1,5 @@
 import Backbone from 'backbone';
+import { browserHistory } from 'react-router';
 
 import store from '../store';
 
@@ -9,9 +10,8 @@ export default Backbone.Model.extend({
     title: '',
     note: ''
   },
-  urlRoot: 'http://api.backendless.com/v1/data/Templates',
+  // urlRoot: 'http://api.backendless.com/v1/data/Templates',
   setupTimer(timerData, title, note) {
-    console.log(timerData, title, note);
     let timerValue = this.calculateTime(timerData.seconds, timerData.minutes, timerData.hours);
     return {
       timerValue,
@@ -26,7 +26,31 @@ export default Backbone.Model.extend({
     let total = Number(convertSeconds) + Number(minutes) + Number(convertHours);
     return total;
   },
-  saveTimer(timerData) {
-    this.setupTimer(timerData);
+  saveTimer(timerData, title, note) {
+    let newTimer = this.setupTimer(timerData, title, note);
+    let uploadCheck = new Promise((resolve, reject) => {
+      let link = null;
+      this.save(
+        newTimer,
+        {
+          url: 'http://api.backendless.com/v1/data/userTimers',
+          success: (response) => {
+            let id = response.id;
+            link = `timers/${id}`;
+            if (link) {
+              store.timers.fetch({url: 'https://api.backendless.com/v1/data/userTimers'});
+              resolve(link);
+            } else {
+              link = 'timers';
+            }
+          },
+          error: (response) => {
+            console.log(response);
+            reject;
+          }
+        }
+      );
+    });
+    return uploadCheck;
   }
 });

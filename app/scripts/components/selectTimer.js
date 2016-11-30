@@ -11,7 +11,7 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    store.timers.fetch();
+    store.timers.fetch({url: 'https://api.backendless.com/v1/data/Templates'});
     store.timers.on('update change', () => {
       this.setState({timers: store.timers.toJSON()});
     });
