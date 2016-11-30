@@ -6,13 +6,14 @@ export default Backbone.Model.extend({
   initialize() {
     if (window.localStorage['user-token']) {
 			this.set({auth: true, 'user-token': window.localStorage['user-token']});
-      browserHistory.push('/selectTimer');
+      browserHistory.push('/createTimer');
 		}
   },
   idAttribute: '_id',
   defaults: {
     auth: false,
-    defaultTimers: false
+    defaultTimers: false,
+    pwReset: null
   },
   register(firstName, lastName, email, password, confirmPW) {
     if ( password === confirmPW ) {
@@ -45,7 +46,7 @@ export default Backbone.Model.extend({
           window.localStorage.setItem('userName', response.get('userName'));
           window.localStorage.setItem('ownerId', response.get('ownerId'));
           this.set({auth: true});
-          browserHistory.push('selectTimer');
+          browserHistory.push('timers');
         },
         error: function(response) {
           alert('Log in not successful. Please try again.');
@@ -64,6 +65,20 @@ export default Backbone.Model.extend({
 		});
   },
   newPassword(email) {
-    console.log(email, 'retrieved');
+    $.ajax({
+      url: `https://api.backendless.com/v1/users/restorepassword/ + ${email}`,
+      method: 'GET',
+      success: () => {
+        console.log('New Password Sent');
+        this.set({pwReset: `A temporary password has been sent to ${email}.`});
+      },
+      error: (response) => {
+        console.log(response.responseJSON.code);
+        if (response.responseJSON.code === 3020) {
+          this.set({pwReset: `I\'m sorry, that email was not found in our system.`});
+          console.log(this.get('pwReset'));
+        }
+      }
+    });
   }
 });

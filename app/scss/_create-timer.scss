@@ -1,0 +1,23 @@
+.create-timer {
+
+  input {
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .timer-title, .note {
+    display: block;
+  }
+
+  .time-value {
+    display: inline-block;
+    width: 15%;
+  }
+
+  .hours, .minutes {
+    
+    &:after {
+      content: ":";
+    }
+  }
+}
