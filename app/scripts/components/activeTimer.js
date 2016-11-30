@@ -7,6 +7,7 @@ import store from '../store';
 export default React.createClass({
   getInitialState() {
     return {
+      // store.timers is only loaded if the user is moving to this page from the select timers page. Need to figure out how to bootstrap this somehow
       timer: store.timers.get(this.props.params.id).toJSON(),
       count: null,
       interval: null,

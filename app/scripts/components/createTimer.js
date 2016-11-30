@@ -54,6 +54,8 @@ export default React.createClass({
     // } else this.setState(state);
   },
   handleSubmit(e) {
+    //handle submit differs from save in that it won't save the timer to the server
+    //or if it does it will burn it so that it doesn't persist after the user logs out
     e.preventDefault();
     let tempTimer = store.timer.setupTimer(
       this.state,
@@ -62,6 +64,7 @@ export default React.createClass({
     return store.timers.temporaryTimers.concat([tempTimer]);
   },
   handleSave(e) {
+    //this method will create a persistent timer that can be loaded later
     e.preventDefault();
     return store.timer.saveTimer(
       this.state,

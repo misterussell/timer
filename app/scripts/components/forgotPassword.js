@@ -5,7 +5,7 @@ import store from '../store';
 export default React.createClass({
   getInitialState() {
     return {
-      message: store.user.pwReset
+      message: null
     };
   },
   componentDidMount() {
