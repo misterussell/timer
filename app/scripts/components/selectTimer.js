@@ -23,7 +23,7 @@ export default React.createClass({
     return (
       <ul className="template-timers">
         <h1 className="timer-titles">Select a timer!</h1>
-        {timers}
+        { timers }
       </ul>
     );
   }

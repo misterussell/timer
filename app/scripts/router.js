@@ -9,6 +9,7 @@ import CreateTimer from './components/createTimer';
 import SelectTimer from './components/selectTimer';
 import Timers from './components/timers';
 import ActiveTimer from './components/activeTimer';
+import TimerGroups from './components/timerGroups';
 
 const router = (
   <Router history={ browserHistory } >
@@ -19,7 +20,8 @@ const router = (
       <Route path='/createTimer' component={ CreateTimer } />
       <Route path='/selectTimer' component={ SelectTimer } />
       <Route path='/timers' component={ Timers } />
-      <Route path='/timers/:id' component= { ActiveTimer } />
+      <Route path='/timers/:id' component={ ActiveTimer } />
+      <Route path='/timerGroups' component={ TimerGroups } />
     </Route>
   </Router>
 );

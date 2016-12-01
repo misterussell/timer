@@ -1,8 +1,9 @@
 import React from 'react';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router';
 
 import store from '../store';
 
+// route: /timers
 export default React.createClass({
   // componentWillMount() {
   //   if (!store.user.defaultTimers) {
@@ -12,8 +13,9 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <Link to="selectTimer">Select a timer</Link>
+        <Link to="selectTimer">Select a premade timer</Link>
         <Link to="createTimer">Create a timer</Link>
+        <Link to="timerGroups">Select a set of premade timers</Link>
       </div>
     );
   }

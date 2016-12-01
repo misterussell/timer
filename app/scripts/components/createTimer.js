@@ -5,6 +5,7 @@ import NumberInput from './numberInput';
 
 import store from '../store';
 
+//route: /createTimer
 export default React.createClass({
   getInitialState() {
     return {
@@ -66,7 +67,7 @@ export default React.createClass({
   handleSave(e) {
     //this method will create a persistent timer that can be loaded later
     e.preventDefault();
-    return store.timer.saveTimer(
+    return store.timers.saveTimer(
       this.state,
       this.refs.title.value,
       this.refs.note.value

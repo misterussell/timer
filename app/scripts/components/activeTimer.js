@@ -6,9 +6,32 @@ import store from '../store';
 
 export default React.createClass({
   getInitialState() {
+    let timer = [];
+    if (store.timers.toJSON().length < 1) {
+      let load = function () {
+      let download = new Promise((resolve, reject) => {
+        store.timers.fetch({
+          url: 'http://api.backendless.com/v1/data/userTimers',
+          success: (response) => {
+            if (response) {
+              resolve(response);
+            }
+          },
+          error: () => {
+            reject;
+          }
+        });
+      });
+      return download;
+    };
+      load().then((response) => {
+        console.log('got it!', response);
+        timer = store.timers.get(this.props.params.id).toJSON();
+      });
+    }
     return {
       // store.timers is only loaded if the user is moving to this page from the select timers page. Need to figure out how to bootstrap this somehow
-      timer: store.timers.get(this.props.params.id).toJSON(),
+      timer,
       count: null,
       interval: null,
       hours: 0,
@@ -17,7 +40,9 @@ export default React.createClass({
     };
   },
   componentWillMount() {
-    console.log(this.props.params);
+    // store.timers.on('update change', () => {
+    //   this.setState({timer: store.timers.get(this.props.params.id).toJSON});
+    // });
   },
   componentDidMount() {
     // count is a millisecond value for added continuity with the std value of setInterval
@@ -61,7 +86,7 @@ export default React.createClass({
     // this function will calculate the remaining time for the current count value
     let seconds = Math.floor((count / 1000) % 60);
     let minutes = Math.floor(((count/1000)/60) % 60);
-    let hours = Math.floor(count/(1000*60*60*24));
+    let hours = Math.floor(count/(1000*60*60) % 24);
     return this.setState(
       { count,
         seconds,

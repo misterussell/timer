@@ -6,7 +6,7 @@ export default Backbone.Model.extend({
   initialize() {
     if (window.localStorage['user-token']) {
 			this.set({auth: true, 'user-token': window.localStorage['user-token']});
-      browserHistory.push('/createTimer');
+      // browserHistory.push('/createTimer');
 		}
   },
   idAttribute: '_id',
