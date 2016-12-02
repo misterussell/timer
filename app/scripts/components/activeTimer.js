@@ -6,32 +6,9 @@ import store from '../store';
 
 export default React.createClass({
   getInitialState() {
-    let timer = [];
-    if (store.timers.toJSON().length < 1) {
-      let load = function () {
-      let download = new Promise((resolve, reject) => {
-        store.timers.fetch({
-          url: 'http://api.backendless.com/v1/data/userTimers',
-          success: (response) => {
-            if (response) {
-              resolve(response);
-            }
-          },
-          error: () => {
-            reject;
-          }
-        });
-      });
-      return download;
-    };
-      load().then((response) => {
-        console.log('got it!', response);
-        timer = store.timers.get(this.props.params.id).toJSON();
-      });
-    }
     return {
       // store.timers is only loaded if the user is moving to this page from the select timers page. Need to figure out how to bootstrap this somehow
-      timer,
+      timer: {},
       count: null,
       interval: null,
       hours: 0,
@@ -40,14 +17,15 @@ export default React.createClass({
     };
   },
   componentWillMount() {
-    // store.timers.on('update change', () => {
-    //   this.setState({timer: store.timers.get(this.props.params.id).toJSON});
-    // });
+    if (store.timers.toJSON().length < 1) {
+      this.loadData();
+    } else {
+      let timer = store.timers.get(this.props.params.id).toJSON();
+      let count = ((timer.timerValue * 60) * 1000);
+      this.setState({ timer, count });
+    }
   },
   componentDidMount() {
-    // count is a millisecond value for added continuity with the std value of setInterval
-    let count = ((this.state.timer.timerValue * 60) * 1000);
-    this.calcRemainder(count);
   },
   componentWillUnmount() {
     if (this.state.interval !== null) {
@@ -70,8 +48,7 @@ export default React.createClass({
     );
   },
   updateTimer() {
-    let updateCount = this.state.count - 1000;
-    return this.calcRemainder(updateCount);
+    return this.calcRemainder(this.updateCount());
   },
   startTimer() {
     if (!this.state.interval) {
@@ -82,16 +59,29 @@ export default React.createClass({
     clearInterval(this.state.interval);
     this.setState({ interval: null });
   },
+  updateCount() {
+    return this.state.count - 1000;
+  },
   calcRemainder(count) {
     // this function will calculate the remaining time for the current count value
-    let seconds = Math.floor((count / 1000) % 60);
-    let minutes = Math.floor(((count/1000)/60) % 60);
-    let hours = Math.floor(count/(1000*60*60) % 24);
-    return this.setState(
-      { count,
-        seconds,
-        minutes,
-        hours
+    let measure = store.timer.computeMeasure(count);
+    let hours = measure.hours;
+    let minutes = measure.minutes;
+    let seconds = measure.seconds;
+    return this.setState({count, hours, minutes, seconds});
+  },
+  loadData() {
+    let timer;
+    store.timers.loadTimers().then((response) => {
+      console.log('got it!', response);
+      timer = store.timers.get(this.props.params.id).toJSON();
+      // count is a millisecond value for added continuity with the std value of setInterval
+      let count = ((timer.timerValue * 60) * 1000);
+      this.setState({
+        timer,
+        count
       });
+      this.calcRemainder(count);
+    }).catch(() => { console.log('Not retrieved.')});
   }
 });

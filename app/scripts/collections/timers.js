@@ -48,5 +48,32 @@ export default Backbone.Collection.extend({
       );
     });
     return uploadCheck;
+  },
+  loadTimers () {
+  if (this.length > 0) {
+      console.log('no fetch needed');
   }
+  let download = new Promise((resolve, reject) => {
+    this.fetch({
+      url: 'http://api.backendless.com/v1/data/userTimers',
+      success: (response) => {
+        this.fetch({
+          url: 'http://api.backendless.com/v1/data/Templates',
+          success: (response) => {
+            if (response) {
+              resolve(response);
+            }
+          },
+          error: (response) => {
+            reject
+          }
+        });
+      },
+      error: () => {
+        reject;
+      }
+    });
+  });
+  return download;
+}
 });
