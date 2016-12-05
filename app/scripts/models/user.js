@@ -94,20 +94,50 @@ export default Backbone.Model.extend({
     // transit_mode=train|tram|subway
     // link with variables
     // url: `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&transit_mode=${transitModes}&key=${keys.distanceAPIkey}`
-    console.log('travel time will be output from this', transitData);
-    let origins, destinations, transit_modes, url;
+
+    let origins, destinations, transit_modes, matchedModes = 0;
+    const service = new google.maps.DistanceMatrixService;
+
+    let transitDataResponse = {
+      destination: '',
+      transit_modes: []
+    };
+
     origins = `${transitData.currentLocation.lat},${transitData.currentLocation.long}`;
     destinations = `${transitData.destinations}`;
-    // transitData.travelMethods.forEach((mode, i) => {
-    //   if (i !== (transitData.travelMethods.length - 1 )) {
-    //     transit_modes += `${mode}|`;
-    //   } else {
-    //     transit_modes += `${mode}`;
-    //   }
-    // });
-    transitData.travelMethods.forEach((mode) => {
-      console.log(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${encodeURI(destinations)}&mode=${mode}&key=${keys.distanceAPIkey}`);
+
+    let loadData = new Promise((resolve, reject) => {
+      transitData.transit_modes.forEach((mode, i) => {
+        service.getDistanceMatrix({
+          origins: [origins],
+          destinations: [destinations],
+          travelMode: mode.toUpperCase(),
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+          }, (response, status) => {
+            if (status !== 'OK') {
+              alert('Error was: ' + status);
+            } else {
+              if (!transitDataResponse.destination) {
+                transitDataResponse.destination = response.destinationAddresses[0];
+              }
+              transitDataResponse.transit_modes.push({
+                distance: response.rows[0].elements[0].distance.text,
+                travelTime: response.rows[0].elements[0].duration.value,
+                mode
+              });
+              matchedModes += 1;
+              if (matchedModes === transitData.transit_modes.length) {
+                resolve(transitDataResponse);
+              } else {
+                reject;
+              }
+            }
+          });
+        });
     });
+    return loadData;
   },
   translateCurrentLocation(){
     let positionData = {};
