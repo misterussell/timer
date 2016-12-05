@@ -16,14 +16,17 @@ export default React.createClass({
     };
   },
   componentWillMount() {
+    let timer, count;
     if (store.timers.toJSON().length < 1) {
       this.loadData();
+    } else if (this.props.groupTemplate) {
+      timer = this.props.timer;
     } else {
-      let timer = store.timers.get(this.props.params.id).toJSON();
-      let count = ((timer.timerValue * 60) * 1000);
-      this.setState({ timer});
-      this.calcRemainder(count);
+      timer = store.timers.get(this.props.params.id).toJSON();
     }
+    count = ((timer.timerValue * 60) * 1000);
+    this.setState({ timer});
+    this.calcRemainder(count);
   },
   componentDidMount() {
   },

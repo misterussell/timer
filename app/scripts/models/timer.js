@@ -6,7 +6,7 @@ export default Backbone.Model.extend({
   idAttribute: 'objectId',
   defaults: {
     timerValue: '',
-    title: '',
+    name: '',
     note: ''
   },
   computeMeasure(count) {
