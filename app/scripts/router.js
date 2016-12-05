@@ -11,6 +11,7 @@ import Timers from './components/timers';
 import ActiveTimer from './components/activeTimer';
 import TimerGroups from './components/timerGroups';
 import SingleTimerGroup from './components/singleTimerGroup';
+import GetLocations from './components/getLocations';
 
 import store from './store';
 
@@ -23,10 +24,11 @@ const router = (
       <Route path='/createTimer' component={ CreateTimer } />
       <Route path='/selectTimer' component={ SelectTimer } user={ false } />
       <Route path='/timers' component={ Timers } />
-      <Route path='/myTimers' component={ SelectTimer } user={ true }/>
+      <Route path='/myTimers' component={ SelectTimer } user={ true } />
       <Route path='/timers/:id' component={ ActiveTimer } />
       <Route path='/timerGroups' component={ TimerGroups } />
       <Route path='/timerGroup/:group' component={ SingleTimerGroup } user={ false } />
+      <Route path='/getLocations' component={ GetLocations } />
     </Route>
   </Router>
 );

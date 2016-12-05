@@ -18,13 +18,16 @@ export default React.createClass({
   componentWillMount() {
     let timer, count;
     if (store.timers.toJSON().length < 1) {
+      //condition check to verify if data loaded
       this.loadData();
     } else if (this.props.groupTemplate) {
+      //condition check to verify if part of group of timers
       timer = this.props.timer;
       count = ((timer.timerValue * 60) * 1000);
-      this.setState({ timer});
+      this.setState({ timer });
       this.calcRemainder(count);
     } else {
+      //condition check to load if visited by :id link
       timer = store.timers.get(this.props.params.id).toJSON();
       count = ((timer.timerValue * 60) * 1000);
       this.setState({ timer});

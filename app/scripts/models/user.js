@@ -2,6 +2,8 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import { browserHistory } from 'react-router';
 
+import keys from '../keys';
+
 export default Backbone.Model.extend({
   initialize() {
     if (window.localStorage['user-token']) {
@@ -84,5 +86,42 @@ export default Backbone.Model.extend({
         }
       }
     });
+  },
+  getTraveltime(transitData) {
+    // Mock link example below
+    // https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&key=YOUR_API_KEY
+    // origins=place+tx
+    // transit_mode=train|tram|subway
+    // link with variables
+    // url: `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&transit_mode=${transitModes}&key=${keys.distanceAPIkey}`
+    console.log('travel time will be output from this', transitData);
+    let origins, destinations, transit_modes, url;
+    origins = `${transitData.currentLocation.lat},${transitData.currentLocation.long}`;
+    destinations = `${transitData.destinations}`;
+    // transitData.travelMethods.forEach((mode, i) => {
+    //   if (i !== (transitData.travelMethods.length - 1 )) {
+    //     transit_modes += `${mode}|`;
+    //   } else {
+    //     transit_modes += `${mode}`;
+    //   }
+    // });
+    transitData.travelMethods.forEach((mode) => {
+      console.log(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${encodeURI(destinations)}&mode=${mode}&key=${keys.distanceAPIkey}`);
+    });
+  },
+  translateCurrentLocation(){
+    let positionData = {};
+    let loadData = new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        positionData.lat = position.coords.latitude;
+        positionData.long = position.coords.longitude;
+        if (positionData.lat && positionData.long) {
+          resolve(positionData);
+        } else {
+          reject;
+        }
+      });
+    });
+    return loadData;
   }
 });
