@@ -30,7 +30,7 @@ export default Backbone.Collection.extend({
       this.create(
         newTimer,
         {
-          url: 'http://api.backendless.com/v1/data/userTimers',
+          url: 'https://api.backendless.com/v1/data/Timers',
           success: (response) => {
             let id = response.id;
             link = `timers/${id}`;
@@ -49,31 +49,30 @@ export default Backbone.Collection.extend({
     });
     return uploadCheck;
   },
+  temporaryTimer(timerData, title, note) {
+    console.log(timerData, title, note);
+    // this.add();
+  },
   loadTimers () {
   if (this.length > 0) {
       console.log('no fetch needed');
+      return null;
   }
-  let download = new Promise((resolve, reject) => {
-    this.fetch({
-      url: 'http://api.backendless.com/v1/data/userTimers',
-      success: (response) => {
-        this.fetch({
-          url: 'http://api.backendless.com/v1/data/Templates',
-          success: (response) => {
-            if (response) {
-              resolve(response);
-            }
-          },
-          error: (response) => {
-            reject
+  // } else {
+    let download = new Promise((resolve, reject) => {
+      this.fetch({
+        url: 'https://api.backendless.com/v1/data/Timers',
+        success: (response) => {
+          if (response) {
+            resolve(response);
           }
-        });
-      },
-      error: () => {
-        reject;
-      }
+        },
+        error: (response) => {
+          reject;
+        }
+      });
     });
-  });
-  return download;
+    return download;
+    // }
 }
 });

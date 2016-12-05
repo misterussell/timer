@@ -5,7 +5,11 @@ import { browserHistory } from 'react-router';
 export default Backbone.Model.extend({
   initialize() {
     if (window.localStorage['user-token']) {
-			this.set({auth: true, 'user-token': window.localStorage['user-token']});
+			this.set({
+        auth: true,
+        'user-token': window.localStorage['user-token'],
+        ownerId: window.localStorage['ownerId']
+      });
       // browserHistory.push('/createTimer');
 		}
   },

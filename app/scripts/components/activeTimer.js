@@ -7,7 +7,6 @@ import store from '../store';
 export default React.createClass({
   getInitialState() {
     return {
-      // store.timers is only loaded if the user is moving to this page from the select timers page. Need to figure out how to bootstrap this somehow
       timer: {},
       count: null,
       interval: null,
@@ -22,7 +21,8 @@ export default React.createClass({
     } else {
       let timer = store.timers.get(this.props.params.id).toJSON();
       let count = ((timer.timerValue * 60) * 1000);
-      this.setState({ timer, count });
+      this.setState({ timer});
+      this.calcRemainder(count);
     }
   },
   componentDidMount() {
@@ -48,6 +48,9 @@ export default React.createClass({
     );
   },
   updateTimer() {
+    if (true) {
+
+    }
     return this.calcRemainder(this.updateCount());
   },
   startTimer() {
@@ -82,6 +85,6 @@ export default React.createClass({
         count
       });
       this.calcRemainder(count);
-    }).catch(() => { console.log('Not retrieved.')});
+    }).catch(() => { console.log('Not retrieved.') });
   }
 });

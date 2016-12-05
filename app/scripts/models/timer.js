@@ -1,5 +1,4 @@
 import Backbone from 'backbone';
-import { browserHistory } from 'react-router';
 
 import store from '../store';
 
