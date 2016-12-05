@@ -119,6 +119,7 @@ export default Backbone.Model.extend({
             if (status !== 'OK') {
               alert('Error was: ' + status);
             } else {
+              console.log(response);
               if (!transitDataResponse.destination) {
                 transitDataResponse.destination = response.destinationAddresses[0];
               }
@@ -133,9 +134,9 @@ export default Backbone.Model.extend({
               } else {
                 reject;
               }
-            }
-          });
+          }
         });
+      });
     });
     return loadData;
   },
@@ -146,6 +147,7 @@ export default Backbone.Model.extend({
         positionData.lat = position.coords.latitude;
         positionData.long = position.coords.longitude;
         if (positionData.lat && positionData.long) {
+          console.log(positionData);
           resolve(positionData);
         } else {
           reject;

@@ -7,9 +7,10 @@ import store from '../store';
 export default React.createClass({
   getInitialState() {
     return {
-      position: '',
-      hours: '',
-      minutes: '',
+      location: '',
+      hours: 0,
+      minutes: 0,
+      timerValue: 0,
       transitDataResponse: {}
     };
   },
@@ -22,7 +23,7 @@ export default React.createClass({
           id="first-name"
           placeholder="Your Location" />
         <button className="locator-button"
-          onClick={ this.getCurrentPosition }>
+          onClick={ this.getCurrentLocation }>
           Get Current Location
         </button>
         <input type="text"
@@ -67,8 +68,8 @@ export default React.createClass({
   handleSubmit(e) {
     e.preventDefault();
     let transitData = {};
-    if (this.state.position) {
-      transitData.currentLocation = this.state.position;
+    if (this.state.location) {
+      transitData.currentLocation = this.state.location;
     } else {
       transitData.currentLocation = this.refs.currentLocation.value;
     }
@@ -76,7 +77,11 @@ export default React.createClass({
     transitData.transit_modes = this.getTransitMethods();
     store.user.getTraveltime(transitData)
     .then((transitDataResponse) => {
-      this.setState({transitDataResponse});
+      let timerValue = Number(this.state.minutes) + (Number(this.state.hours) * 60);
+      this.setState({
+        timerValue,
+        transitDataResponse
+      });
     })
     .catch(() => {
       alert('not retreived');
@@ -87,11 +92,11 @@ export default React.createClass({
     state[measure] = value;
     this.setState(state);
   },
-  getCurrentPosition(e) {
+  getCurrentLocation(e) {
     e.preventDefault();
     store.user.translateCurrentLocation()
-    .then((position) => {
-      this.setState({ position });
+    .then((positionData) => {
+      this.setState({ location: positionData });
       this.refs.currentLocation.value = 'Current Location';
     })
     .catch(() => {
