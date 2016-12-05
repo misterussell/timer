@@ -21,12 +21,15 @@ export default React.createClass({
       this.loadData();
     } else if (this.props.groupTemplate) {
       timer = this.props.timer;
+      count = ((timer.timerValue * 60) * 1000);
+      this.setState({ timer});
+      this.calcRemainder(count);
     } else {
       timer = store.timers.get(this.props.params.id).toJSON();
+      count = ((timer.timerValue * 60) * 1000);
+      this.setState({ timer});
+      this.calcRemainder(count);
     }
-    count = ((timer.timerValue * 60) * 1000);
-    this.setState({ timer});
-    this.calcRemainder(count);
   },
   componentDidMount() {
   },
@@ -51,10 +54,12 @@ export default React.createClass({
     );
   },
   updateTimer() {
-    if (true) {
-
+    if (this.state.count) {
+      return this.calcRemainder(this.updateCount());
+    } else {
+      this.pauseTimer();
+      return store.timer.completeTimer();
     }
-    return this.calcRemainder(this.updateCount());
   },
   startTimer() {
     if (!this.state.interval) {

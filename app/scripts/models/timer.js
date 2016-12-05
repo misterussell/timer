@@ -7,7 +7,8 @@ export default Backbone.Model.extend({
   defaults: {
     timerValue: '',
     name: '',
-    note: ''
+    note: '',
+    notificationSound: 'templebell'
   },
   computeMeasure(count) {
     // this function will calculate the remaining time for the current count value
@@ -19,5 +20,13 @@ export default Backbone.Model.extend({
         minutes,
         hours
       };
+  },
+  completeTimer() {
+    this.playNotification();
+    alert('Times up!');
+  },
+  playNotification() {
+    let audio = new Audio(`../../assets/${this.notificationSound}.mp3`)
+    audio.play();
   }
 });
