@@ -7,11 +7,11 @@ export default Backbone.Collection.extend({
   parse(data) {
     return data.data;
   },
-  setupTimer(timerData, title, note) {
+  setupTimer(timerData, name, note) {
     let timerValue = this.calculateTime(timerData.seconds, timerData.minutes, timerData.hours);
     return {
       timerValue,
-      title,
+      name,
       note
     };
   },
@@ -22,9 +22,9 @@ export default Backbone.Collection.extend({
     let total = Number(convertSeconds) + Number(minutes) + Number(convertHours);
     return total;
   },
-  saveTimer(timerData, title, note) {
-    let newTimer = this.setupTimer(timerData, title, note);
-    console.log(newTimer);
+  saveTimer(timerData, name, note) {
+    let newTimer = this.setupTimer(timerData, name, note);
+
     let uploadCheck = new Promise((resolve, reject) => {
       let link = null;
       this.create(
@@ -49,8 +49,8 @@ export default Backbone.Collection.extend({
     });
     return uploadCheck;
   },
-  temporaryTimer(timerData, title, note) {
-    console.log(timerData, title, note);
+  temporaryTimer(timerData, name, note) {
+    console.log(timerData, name, note);
     // this.add();
   },
   loadTimers () {
@@ -74,5 +74,38 @@ export default Backbone.Collection.extend({
     });
     return download;
     // }
-}
+},
+createTransitTimers(allData) {
+  let timers = 0;
+  console.log(allData);
+  let uploadCheck = new Promise((resolve, reject) => {
+    allData.transitDataResponse.transit_modes.forEach((mode, i, arr) => {
+      let newTimer = {
+        timerValue: Math.floor(mode.travelTime),
+        name: mode.mode,
+        note: `${allData.transitDataResponse.origin} to ${allData.transitDataResponse.destination}`,
+        type: 'mobility'
+      };
+      console.log(newTimer);
+        this.create(
+          newTimer,
+          {
+            url: 'https://api.backendless.com/v1/data/Timers',
+            success: (response) => {
+              console.log(response);
+              timers += 1;
+              if (timers === arr.length) {
+                resolve();
+              }
+            },
+            error: (response) => {
+              console.log(response);
+              reject;
+            }
+          }
+        );
+    });
+  });
+  return uploadCheck;
+  }
 });

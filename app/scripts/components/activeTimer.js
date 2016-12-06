@@ -48,6 +48,7 @@ export default React.createClass({
           <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
           <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
           <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
+          <h3 className="note"> { this.state.timer.note } </h3>
           {
             <TimerButtons
             startCallback={ this.startTimer }

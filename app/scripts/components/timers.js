@@ -15,6 +15,7 @@ export default React.createClass({
       <div>
         <Link className="timer-link" to="selectTimer">Select a premade timer</Link>
         <Link className="timer-link" to="createTimer">Create a timer</Link>
+        <Link className="timer=link" to="plan_a_trip">Create a mobility timer</Link>
         <Link className="timer-link" to="myTimers">View My Timers</Link>
         <Link className="timer-link" to="timerGroups">Select a set of premade timers</Link>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import ActiveTimer from './activeTimer';
 
@@ -11,7 +12,9 @@ export default React.createClass({
     };
   },
   componentWillMount () {
-
+    if (store.timers.toJSON().length < 1) {
+      browserHistory.push('timerGroups');
+    }
   },
   componentDidMount() {
     let group = store.timers.toJSON().filter((group) => {
@@ -19,11 +22,12 @@ export default React.createClass({
         return true;
       }
     });
+    //utilizing group[0] due to the nature of the map over the different timer groups
     this.setState({ timers: group[0].timers });
   },
   render() {
     let timers = <div>test</div>;
-    console.log(this.state.timers);
+    // console.log(this.state.timers);
     timers = this.state.timers.map((timer, i) => {
       return <ActiveTimer key={ i } timer={ timer } groupTemplate={ true } />;
     });

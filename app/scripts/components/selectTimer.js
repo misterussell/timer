@@ -25,8 +25,10 @@ export default React.createClass({
       this.setState({timers: store.timers.toJSON()});
     });
   },
+  componentWillUnmount() {
+    store.timers.off();
+  },
   render() {
-
     let timers = this.state.timers.map((timer, i) => {
       return <SingleTimer key={ i } timer={ timer }/>;
     });

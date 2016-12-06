@@ -8,8 +8,6 @@ export default React.createClass({
   getInitialState() {
     return {
       location: '',
-      hours: 0,
-      minutes: 0,
       timerValue: 0,
       transitDataResponse: {}
     };
@@ -31,6 +29,7 @@ export default React.createClass({
           className="new-form-input"
           id="last-name"
           placeholder="Where do you need to be?" />
+        <h3>What mobility options do you have?</h3>
         <input
           type="checkbox"
           ref="walking"
@@ -51,16 +50,14 @@ export default React.createClass({
           value="drive" />
         <label htmlFor="method-drive">Drive</label>
         <h3>When do you have to be there?</h3>
-        <NumberInput
+        <input
+          type="text"
           className="hours timevalue"
-          measure={ 'hours' }
-          value={ this.state.hours }
-          callBack={ this.handleTime } />
-        <NumberInput
+          ref="hours" />
+        <input
+          type="text"
           className="minutes timevalue"
-          measure={ 'minutes' }
-          value={ this.state.minutes }
-          callBack={ this.handleTime } />
+          ref="minutes"/>
         <input type="submit" id="submit" value="Calculate Time" />
       </form>
     );
@@ -77,10 +74,15 @@ export default React.createClass({
     transitData.transit_modes = this.getTransitMethods();
     store.user.getTraveltime(transitData)
     .then((transitDataResponse) => {
-      let timerValue = Number(this.state.minutes) + (Number(this.state.hours) * 60);
+      let timerValue = Number(this.refs.minutes.value) + (Number(this.refs.hours.value) * 60);
       this.setState({
         timerValue,
         transitDataResponse
+      });
+      store.timers.createTransitTimers(this.state)
+      .then(() => {
+        console.log('all data saved!');
+        console.log(store.timers);
       });
     })
     .catch(() => {
@@ -110,5 +112,8 @@ export default React.createClass({
         return method;
       }
     });
+  },
+  renderTimers() {
+    console.log('this will show the timers on the same screen');
   }
 });

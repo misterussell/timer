@@ -28,7 +28,7 @@ const router = (
       <Route path='/timers/:id' component={ ActiveTimer } />
       <Route path='/timerGroups' component={ TimerGroups } />
       <Route path='/timerGroup/:group' component={ SingleTimerGroup } user={ false } />
-      <Route path='/getLocations' component={ GetLocations } />
+      <Route path='/plan_a_trip' component={ GetLocations } />
     </Route>
   </Router>
 );

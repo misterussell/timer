@@ -88,13 +88,6 @@ export default Backbone.Model.extend({
     });
   },
   getTraveltime(transitData) {
-    // Mock link example below
-    // https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&key=YOUR_API_KEY
-    // origins=place+tx
-    // transit_mode=train|tram|subway
-    // link with variables
-    // url: `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&transit_mode=${transitModes}&key=${keys.distanceAPIkey}`
-
     let origins, destinations, transit_modes, matchedModes = 0;
     const service = new google.maps.DistanceMatrixService;
 
@@ -120,12 +113,15 @@ export default Backbone.Model.extend({
               alert('Error was: ' + status);
             } else {
               console.log(response);
+              if (!transitDataResponse.origin) {
+                transitDataResponse.origin = response.originAddresses[0];
+              }
               if (!transitDataResponse.destination) {
                 transitDataResponse.destination = response.destinationAddresses[0];
               }
               transitDataResponse.transit_modes.push({
                 distance: response.rows[0].elements[0].distance.text,
-                travelTime: response.rows[0].elements[0].duration.value,
+                travelTime: (response.rows[0].elements[0].duration.value / 60),
                 mode
               });
               matchedModes += 1;
