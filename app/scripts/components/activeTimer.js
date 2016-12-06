@@ -21,9 +21,13 @@ export default React.createClass({
       //condition check to verify if data loaded
       this.loadData();
     } else if (this.props.groupTemplate || this.props.mobilityTemplate) {
-      //condition check to verify if part of group of timers
+      //condition check to verify if part of group of timers, if is sent in with time constraint if will calculate when you need to leave
       timer = this.props.timer;
-      count = ((timer.timerValue * 60) * 1000);
+      if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
+        count = (((this.props.timeConstraint - timer.timerValue) * 60) * 1000);
+      } else {
+        count = ((timer.timerValue * 60) * 1000);
+      }
       this.setState({ timer });
       this.calcRemainder(count);
     } else {

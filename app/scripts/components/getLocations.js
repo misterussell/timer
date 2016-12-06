@@ -9,7 +9,7 @@ export default React.createClass({
   getInitialState() {
     return {
       location: '',
-      timerValue: 0,
+      timeConstraint: 0,
       transitDataResponse: {},
       timers: []
     };
@@ -17,7 +17,7 @@ export default React.createClass({
   render() {
     let timers = null;
     timers = this.state.timers.map((timer, i) => {
-        return <ActiveTimer key={ i } timer={ timer } mobilityTemplate={ true } />;
+        return <ActiveTimer key={ i } timer={ timer } timeConstraint={ this.state.timeConstraint } mobilityTemplate={ true } />;
       });
     return (
       <div className="mobility-timer-search">
@@ -84,9 +84,9 @@ export default React.createClass({
     transitData.transit_modes = this.getTransitMethods();
     store.user.getTraveltime(transitData)
     .then((transitDataResponse) => {
-      let timerValue = Number(this.refs.minutes.value) + (Number(this.refs.hours.value) * 60);
+      let timeConstraint = Number(this.refs.minutes.value) + (Number(this.refs.hours.value) * 60);
       this.setState({
-        timerValue,
+        timeConstraint,
         transitDataResponse
       });
       store.timers.createTransitTimers(this.state)
