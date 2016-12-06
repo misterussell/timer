@@ -2,6 +2,7 @@ import React from 'react';
 
 import NumberInput from './numberInput';
 import ActiveTimer from './activeTimer';
+import FailedTravelOption from './failedTravelOption';
 
 import store from '../store';
 
@@ -17,8 +18,12 @@ export default React.createClass({
   render() {
     let timers = null;
     timers = this.state.timers.map((timer, i) => {
-        return <ActiveTimer key={ i } timer={ timer } timeConstraint={ this.state.timeConstraint } mobilityTemplate={ true } />;
-      });
+      if (this.state.timeConstraint - timer.timerValue > 0) {
+        return <ActiveTimer key={ timer.objectId } timer={ timer } timeConstraint={ this.state.timeConstraint } mobilityTemplate={ true } />;
+      } else {
+        return <FailedTravelOption key={ timer.objectId } timer= { timer } timeConstraint={ this.state.timeConstraint } />;
+      }
+    });
     return (
       <div className="mobility-timer-search">
         <form className="get-locations" onSubmit={this.handleSubmit}>

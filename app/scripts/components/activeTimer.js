@@ -13,6 +13,7 @@ export default React.createClass({
       hours: 0,
       minutes: 0,
       seconds: 0,
+      mobilityCheck: false
     };
   },
   componentWillMount() {
@@ -24,6 +25,7 @@ export default React.createClass({
       //condition check to verify if part of group of timers, if is sent in with time constraint if will calculate when you need to leave
       timer = this.props.timer;
       if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
+        //calculates a timer that has the value of when the User needs to leave
         count = (((this.props.timeConstraint - timer.timerValue) * 60) * 1000);
       } else {
         count = ((timer.timerValue * 60) * 1000);
@@ -46,18 +48,34 @@ export default React.createClass({
     }
   },
   render() {
+    let mobilityCalculator = null;
+
+    if ((this.state.timer.type === 'mobility') && (this.state.mobilityCheck === false)) {
+      // submitValue = `When do you need to be at ${this.state.timer.destination}`;
+      mobilityCalculator = (
+        <form className="mobility-calculator" onSubmit={ this.handleSubmit }>
+          <input type="text" ref="hours" />
+          <input type="text" ref="minutes" />
+          <input type="submit" value="When do you need to be there?" />
+        </form>
+      );
+    }
+
     return (
       <div className="active-timer">
-          <h1 className="timer-name"> { this.state.timer.name } </h1>
-          <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
-          <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
-          <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
-          <h3 className="note"> { this.state.timer.note } </h3>
-          {
-            <TimerButtons
-            startCallback={ this.startTimer }
-            pauseCallback={ this.pauseTimer } />
-          }
+        { mobilityCalculator }
+        <h1 className="timer-name"> { this.state.timer.name } </h1>
+        <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
+        <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
+        <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
+        <h3 className="note"> { this.state.timer.note } </h3>
+        <h3 className="origin"> { this.state.timer.origin } </h3>
+        <h3 className="desination"> { this.state.timer.destination } </h3>
+        {
+          <TimerButtons
+          startCallback={ this.startTimer }
+          pauseCallback={ this.pauseTimer } />
+        }
       </div>
     );
   },
@@ -102,5 +120,17 @@ export default React.createClass({
       });
       this.calcRemainder(count);
     }).catch(() => { console.log('Not retrieved.') });
+  },
+  handleSubmit(e) {
+    e.preventDefault();
+    let hours = this.refs.hours.value;
+    let minutes = this.refs.minutes.value;
+    let timeConstraint = (hours * 60) + minutes;
+    console.log(timeConstraint);
+    let count = (((timeConstraint - this.state.timer.timerValue) * 60) * 1000);
+    this.setState({
+      mobilityCheck: true
+     });
+    this.calcRemainder(count);
   }
 });

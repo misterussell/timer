@@ -14,7 +14,6 @@ export default React.createClass({
     store.timers.fetch({url: `http://api.backendless.com/v1/data/multiTimerTemplates?loadRelations=timers`});
     store.timers.fetch({
       url: `https://api.backendless.com/v1/data/Timers?where=` + escape(`ownerId='${store.user.get('ownerId')}' AND type='mobility'`),
-      // url: `https://api.backendless.com/v1/data/Timers?where=` + escape(`type='mobility'`),
       remove: false,
     });
     store.timers.on('update change', () => {
@@ -30,7 +29,6 @@ export default React.createClass({
       <div className="timer-group-links">
         <Link to="timerGroup/productivity_timers">Productivity Timers</Link>
         <Link to="timerGroup/mindfulness_timers">Mindfulness Timers</Link>
-        <Link to="timerGroup/mobility_timers">Mobility Timers</Link>
       </div>
     );
   }

@@ -83,7 +83,8 @@ createTransitTimers(allData) {
       let newTimer = {
         timerValue: Math.floor(mode.travelTime),
         name: mode.mode,
-        note: `${allData.transitDataResponse.origin} to ${allData.transitDataResponse.destination}`,
+        origin: allData.transitDataResponse.origin ,
+        destination: allData.transitDataResponse.destination,
         type: 'mobility'
       };
         this.create(
