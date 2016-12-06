@@ -76,7 +76,7 @@ export default Backbone.Collection.extend({
     // }
 },
 createTransitTimers(allData) {
-  let timers = 0;
+  let timers = [];
   console.log(allData);
   let uploadCheck = new Promise((resolve, reject) => {
     allData.transitDataResponse.transit_modes.forEach((mode, i, arr) => {
@@ -86,16 +86,15 @@ createTransitTimers(allData) {
         note: `${allData.transitDataResponse.origin} to ${allData.transitDataResponse.destination}`,
         type: 'mobility'
       };
-      console.log(newTimer);
         this.create(
           newTimer,
           {
             url: 'https://api.backendless.com/v1/data/Timers',
             success: (response) => {
-              console.log(response);
-              timers += 1;
-              if (timers === arr.length) {
-                resolve();
+              console.log(response.toJSON());
+              timers.push(response.toJSON())
+              if (timers.length === arr.length) {
+                resolve(timers);
               }
             },
             error: (response) => {

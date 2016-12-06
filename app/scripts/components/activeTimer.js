@@ -20,7 +20,7 @@ export default React.createClass({
     if (store.timers.toJSON().length < 1) {
       //condition check to verify if data loaded
       this.loadData();
-    } else if (this.props.groupTemplate) {
+    } else if (this.props.groupTemplate || this.props.mobilityTemplate) {
       //condition check to verify if part of group of timers
       timer = this.props.timer;
       count = ((timer.timerValue * 60) * 1000);

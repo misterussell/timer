@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NumberInput from './numberInput';
+import ActiveTimer from './activeTimer';
 
 import store from '../store';
 
@@ -9,12 +10,18 @@ export default React.createClass({
     return {
       location: '',
       timerValue: 0,
-      transitDataResponse: {}
+      transitDataResponse: {},
+      timers: []
     };
   },
   render() {
+    let timers = null;
+    timers = this.state.timers.map((timer, i) => {
+        return <ActiveTimer key={ i } timer={ timer } mobilityTemplate={ true } />;
+      });
     return (
-      <form className="get-locations" onSubmit={this.handleSubmit}>
+      <div className="mobility-timer-search">
+        <form className="get-locations" onSubmit={this.handleSubmit}>
         <input type="text"
           ref="currentLocation"
           className="new-form-input"
@@ -59,13 +66,16 @@ export default React.createClass({
           className="minutes timevalue"
           ref="minutes"/>
         <input type="submit" id="submit" value="Calculate Time" />
-      </form>
+        </form>
+      { timers }
+      </div>
     );
   },
   handleSubmit(e) {
     e.preventDefault();
     let transitData = {};
     if (this.state.location) {
+      //conditional statement that allows either a geoLocated browswer location, or a ref based input
       transitData.currentLocation = this.state.location;
     } else {
       transitData.currentLocation = this.refs.currentLocation.value;
@@ -80,13 +90,16 @@ export default React.createClass({
         transitDataResponse
       });
       store.timers.createTransitTimers(this.state)
-      .then(() => {
+      .then((timers) => {
         console.log('all data saved!');
-        console.log(store.timers);
+        this.setState({ timers });
+      })
+      .catch(() => {
+        alert('Error, please try to create timers again.');
       });
     })
     .catch(() => {
-      alert('not retreived');
+      alert('Data not retreived from Google API, please try again.');
     });
   },
   handleTime(measure, value) {
@@ -113,7 +126,4 @@ export default React.createClass({
       }
     });
   },
-  renderTimers() {
-    console.log('this will show the timers on the same screen');
-  }
 });
