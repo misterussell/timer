@@ -107,5 +107,5 @@ createTransitTimers(allData) {
     });
   });
   return uploadCheck;
-  }
+}
 });

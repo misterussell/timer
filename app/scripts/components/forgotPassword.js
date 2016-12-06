@@ -10,15 +10,18 @@ export default React.createClass({
   },
   componentDidMount() {
     store.user.on('update change', () => {
-      this.setState({ message: store.user.pwReset });
+      this.setState({ message: store.user.get('pwReset') });
     });
   },
+  componentWillUnmount() {
+    store.user.off();
+  },
   render() {
-    let message = '';
+    let message = null;
     if (this.state.message) {
       message = (
         <div className="reset-message">
-          { this.state.message };
+          { this.state.message }
         </div>
       );
     }

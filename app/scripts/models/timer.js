@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Backbone from 'backbone';
 
 import store from '../store';
@@ -29,5 +30,25 @@ export default Backbone.Model.extend({
   playNotification(notification) {
     let audio = new Audio(`../../assets/sounds/${notification}.mp3`);
     audio.play();
+  },
+  deleteTimer(objectId) {
+    let deleteCheck = new Promise((resolve, reject) => {
+      let deletionTime = null;
+      $.ajax({
+        url: `https://api.backendless.com/v1/data/Timers/` + objectId,
+        method: 'DELETE',
+        success: (response) => {
+          let deletionTime = response.deletionTime;
+          if (deletionTime) {
+            resolve();
+          }
+        },
+        error: (response) => {
+          console.log(response);
+          reject;
+        }
+      });
+  });
+  return deleteCheck;
   }
 });

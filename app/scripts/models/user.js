@@ -72,7 +72,7 @@ export default Backbone.Model.extend({
   },
   newPassword(email) {
     $.ajax({
-      url: `https://api.backendless.com/v1/users/restorepassword/ + ${email}`,
+      url: 'https://api.backendless.com/v1/users/restorepassword/' + email ,
       method: 'GET',
       success: () => {
         console.log('New Password Sent');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 
 import TimerButtons from './buttons/timerButtons';
 import MinimizeButton from './buttons/minimizeButton';
@@ -79,7 +80,9 @@ export default React.createClass({
         {
           <TimerButtons
           startCallback={ this.startTimer }
-          pauseCallback={ this.pauseTimer } />
+          pauseCallback={ this.pauseTimer }
+          deleteCallback={ this.deleteTimer }
+          owner={ this.state.timer.ownerId } />
         }
       </div>
       );
@@ -153,5 +156,14 @@ export default React.createClass({
     } else {
       this.setState({ minimize: true });
     }
+  },
+  deleteTimer() {
+    store.timer.deleteTimer(this.state.timer.objectId)
+    .then(() => {
+      browserHistory.push('createTimer');
+    })
+    .catch(() => {
+      alert('item not deleted');
+    });
   }
 });
