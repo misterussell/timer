@@ -21,12 +21,13 @@ export default Backbone.Model.extend({
         hours
       };
   },
-  completeTimer() {
-    this.playNotification();
+  completeTimer(notification) {
+    console.log();
+    this.playNotification(notification);
     alert('Times up!');
   },
-  playNotification() {
-    let audio = new Audio(`../../assets/${this.notificationSound}.mp3`)
+  playNotification(notification) {
+    let audio = new Audio(`../../assets/sounds/${notification}.mp3`);
     audio.play();
   }
 });

@@ -40,7 +40,6 @@ export default React.createClass({
           ref="note"
           className="note"
           placeholder="What's this timer for?" />
-        <input type="submit" id="submit" value="Start Timer" onSubmit={ this.handleSubmit }/>
         <input type="button" id="save" value="Save & Start" onClick={ this.handleSave }/>
       </form>
     );
@@ -54,17 +53,7 @@ export default React.createClass({
     //   this.setState({ minutes: value });
     // } else this.setState(state);
   },
-  handleSubmit(e) {
-    //handle submit differs from save in that it won't save the timer to the server
-    //or if it does it will burn it so that it doesn't persist after the user logs out
-    e.preventDefault();
-    let tempTimer = store.timer.temporaryTimer(
-      this.state,
-      this.refs.title.value,
-      this.refs.note.value);
-  },
   handleSave(e) {
-    //this method will create a persistent timer that can be loaded later
     e.preventDefault();
     return store.timers.saveTimer(
       this.state,

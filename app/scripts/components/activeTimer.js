@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TimerButtons from './buttons/timerButtons';
+import MinimizeButton from './buttons/minimizeButton';
 
 import store from '../store';
 
@@ -13,7 +14,8 @@ export default React.createClass({
       hours: 0,
       minutes: 0,
       seconds: 0,
-      mobilityCheck: false
+      mobilityCheck: false,
+      minimize: false
     };
   },
   componentWillMount() {
@@ -36,7 +38,7 @@ export default React.createClass({
       //condition check to load if visited by :id link
       timer = store.timers.get(this.props.params.id).toJSON();
       count = ((timer.timerValue * 60) * 1000);
-      this.setState({ timer});
+      this.setState({ timer });
       this.calcRemainder(count);
     }
   },
@@ -48,7 +50,7 @@ export default React.createClass({
     }
   },
   render() {
-    let mobilityCalculator = null;
+    let mobilityCalculator = null, minimizeButton = null, timer = null;
 
     if ((this.state.timer.type === 'mobility') && (this.state.mobilityCheck === false)) {
       // submitValue = `When do you need to be at ${this.state.timer.destination}`;
@@ -61,9 +63,13 @@ export default React.createClass({
       );
     }
 
-    return (
-      <div className="active-timer">
-        { mobilityCalculator }
+    if (this.props.groupTemplate) {
+      minimizeButton = <MinimizeButton callback={ this.toggle } />;
+    }
+
+    if (!this.state.minimize) {
+      timer = (
+        <div className="active-timer">
         <h1 className="timer-name"> { this.state.timer.name } </h1>
         <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
         <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
@@ -77,6 +83,15 @@ export default React.createClass({
           pauseCallback={ this.pauseTimer } />
         }
       </div>
+      );
+    }
+
+    return (
+      <div className="active-timer-container">
+        { minimizeButton }
+        { mobilityCalculator }
+        { timer }
+      </div>
     );
   },
   updateTimer() {
@@ -84,7 +99,7 @@ export default React.createClass({
       return this.calcRemainder(this.updateCount());
     } else {
       this.pauseTimer();
-      return store.timer.completeTimer();
+      return store.timer.completeTimer(this.state.timer.notificationSound);
     }
   },
   startTimer() {
@@ -132,5 +147,12 @@ export default React.createClass({
       mobilityCheck: true
      });
     this.calcRemainder(count);
+  },
+  toggle() {
+    if (this.state.minimize) {
+      this.setState({ minimize: false });
+    } else {
+      this.setState({ minimize: true });
+    }
   }
 });
