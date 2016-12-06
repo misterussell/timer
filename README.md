@@ -2,7 +2,7 @@
 
 ## Pitch
 
-  - [AppName] is a multi-tasking resource that implements customizable timers to maximize productivity, mindfulness, and mobility. Be on time, be present, stay on track.
+  - OnTime is a multi-tasking resource that implements customizable timers to maximize productivity, mindfulness, and mobility. Be on time, be present, stay on track.
 
 ## MVP User Stories
 
@@ -15,8 +15,9 @@
 ## Wireframes
 
   - [MVP Wireframes](/app/assets/images/timermvpwireframes.jpg)
+  - [Single Timer Wireframe](/app/assets/images/singletimerwireframe.jpg)
 
-## Basic Features
+## Basic Features Planning
 
   - *Registration/Secure Login*
     - Include Gmail/Facebook authentication
@@ -24,7 +25,6 @@
     - Minimal accessibility options
   - *User Defined Timer Creation*
     - Quick Timer Creation: Make simple timer with Value and Description
-    - Form Timer Creation: Conditional selection of timer properties
   - *Pre-made Timer Template Selection* `user can also CRUD on these templates`
     - Productivity
       * Timer's centered around keeping on tracking/hitting goals. I.E. pomodoro style timers
@@ -33,16 +33,16 @@
       * These will utilize Google API's to assist with timer creation
     - Mindfulness
       * Timer's centered around practice of mindfulness
-      * Link to pertinent relative data elsewhere
+      * Link to pertinent relative data elsewhere on the web
   - *Multi-Timer Template Creation*
-    - Creates a predefined number of pre-made timers
+    - Creates a predefined number of pre-made timers (of the classes listed above)
   - *Timer/Template Sharing*
     - Allows for user's to export a timer/template of timers as a sharable link
   - *Pausable Timers* `late-stage priority`
-    - Allow server to track if timers are paused
+    - Allow server to track if timers are paused (outside of just browser window)
     - Adds usability for long-term project timers
 
-## React Routes/Components
+## React Routes/Components Planning
 
   - Home `/`
     - Includes persistent and collapsable menu
@@ -55,7 +55,7 @@
 ## Libraries/Special Features
 
   - `Travel Time Anticipation` - provided with use of Google Distance Matrix + Directions API to allow for multi-point travel
-  - `Geolocation` - provided with use of Google API
+  - `Geolocation` - provided with use of Google API/Native browser geoLocation
 
 ## UI/Design
 

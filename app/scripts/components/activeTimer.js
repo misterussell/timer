@@ -53,7 +53,6 @@ export default React.createClass({
     let mobilityCalculator = null, minimizeButton = null, timer = null;
 
     if ((this.state.timer.type === 'mobility') && (this.state.mobilityCheck === false)) {
-      // submitValue = `When do you need to be at ${this.state.timer.destination}`;
       mobilityCalculator = (
         <form className="mobility-calculator" onSubmit={ this.handleSubmit }>
           <input type="text" ref="hours" />
