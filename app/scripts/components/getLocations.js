@@ -29,16 +29,16 @@ export default React.createClass({
         <form className="get-locations" onSubmit={this.handleSubmit}>
         <input type="text"
           ref="currentLocation"
-          className="new-form-input"
+          className="new-form-input origin"
           id="first-name"
           placeholder="Your Location" />
         <button className="locator-button"
           onClick={ this.getCurrentLocation }>
-          Get Current Location
+          <i className="fa fa-compass" aria-hidden="true"></i>
         </button>
         <input type="text"
           ref="newLocation"
-          className="new-form-input"
+          className="new-form-input destination"
           id="last-name"
           placeholder="Where do you need to be?" />
         <h3>What mobility options do you have?</h3>
@@ -61,16 +61,18 @@ export default React.createClass({
           className="travel-method"
           value="drive" />
         <label htmlFor="method-drive">Drive</label>
-        <h3>When do you have to be there?</h3>
+        <h3>How long until you have to be there?</h3>
         <input
           type="text"
           className="hours timevalue"
-          ref="hours" />
+          ref="hours"
+          placeholder="Hours" />
         <input
           type="text"
           className="minutes timevalue"
-          ref="minutes"/>
-        <input type="submit" id="submit" value="Calculate Time" />
+          ref="minutes"
+          placeholder="Minutes" />
+        <input type="submit" id="submit" value="Calculate Timers" />
         </form>
       { timers }
       </div>

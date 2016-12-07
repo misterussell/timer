@@ -1,0 +1,9 @@
+.timer-link {
+  background: $color-primary-1-opaque;
+  width: 50%;
+  max-width: 600px;
+  padding: 1rem;
+  &:hover {
+    background: $color-secondary-1-1;
+  }
+}

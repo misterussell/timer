@@ -1,39 +1,46 @@
-.active-timer {
-  padding: 1rem;
-  position: relative;
-  @include clearfix;
+.active-timer-container {
+  border: .1rem solid $color-primary-1-opaque;
+  width: 65%;
+  margin: .5rem auto;
 
-  h1 {
-    color: $color-primary-1;
-    font-size: 1.5rem;
-    padding: 0;
-  }
+  .active-timer {
+    padding: 1rem;
+    position: relative;
+    @include clearfix;
 
-  h2 {
-    height: 100%;
-    display: inline-block;
-    // background: $color-primary-1;
-    box-sizing: border-box;
-    margin: .1rem;
-    padding: .6rem;
-    border-radius: .5rem;
-    background-image: linear-gradient(180deg, $color-primary-1 50%, $color-secondary-2-1 50%);
-  }
+    .timer-name {
+      color: $color-primary-1;
+      font-size: 1.5rem;
+      padding: 0;
+      margin: 0.2rem;
+    }
 
-  .hours::after {
-    content: 'h';
-    color: $color-secondary-2-3;
-  }
+    h2 {
+      height: 100%;
+      display: inline-block;
+      // background: $color-primary-1;
+      box-sizing: border-box;
+      margin: .1rem;
+      padding: .6rem;
+      border-radius: .5rem;
+      background-image: linear-gradient(180deg, $color-primary-1 50%, $color-secondary-2-1 50%);
+    }
 
-  .minutes::after {
-    content: 'm';
-    color: $color-secondary-2-3;
+    .hours::after {
+      content: 'h';
+      color: $color-secondary-2-3;
+    }
 
-  }
+    .minutes::after {
+      content: 'm';
+      color: $color-secondary-2-3;
 
-  .seconds::after {
-    content: 's';
-    color: $color-secondary-2-3;
+    }
+
+    .seconds::after {
+      content: 's';
+      color: $color-secondary-2-3;
+    }
   }
 }
 

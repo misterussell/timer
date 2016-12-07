@@ -71,9 +71,11 @@ export default React.createClass({
       timer = (
         <div className="active-timer">
         <h1 className="timer-name"> { this.state.timer.name } </h1>
-        <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
-        <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
-        <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
+        <div className="time-values">
+          <h2 className="hours"> { ('0' + this.state.hours).slice(-2) } </h2>
+          <h2 className="minutes"> { ('0' + this.state.minutes).slice(-2) } </h2>
+          <h2 className="seconds"> { ('0' + this.state.seconds).slice(-2) } </h2>
+        </div>
         <h3 className="note"> { this.state.timer.note } </h3>
         <h3 className="origin"> { this.state.timer.origin } </h3>
         <h3 className="desination"> { this.state.timer.destination } </h3>
@@ -101,10 +103,12 @@ export default React.createClass({
       return this.calcRemainder(this.updateCount());
     } else {
       this.pauseTimer();
+      // store.timerStats.saveStat(this.state.timer.objectId, this.state.timer.timerValue);
       return store.timer.completeTimer(this.state.timer.notificationSound);
     }
   },
   startTimer() {
+    store.timerStats.saveStat(this.state.timer.objectId, this.state.timer.timerValue);
     if (!this.state.interval) {
       this.setState({ interval: setInterval(this.updateTimer, 1000) });
     }
