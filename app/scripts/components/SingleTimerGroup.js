@@ -13,7 +13,7 @@ export default React.createClass({
   },
   componentWillMount () {
     if (store.timers.toJSON().length < 1) {
-      browserHistory.push('timerGroups');
+      browserHistory.push('/timerGroups');
     }
   },
   componentDidMount() {

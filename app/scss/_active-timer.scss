@@ -3,9 +3,15 @@
   width: 65%;
   margin: .5rem auto;
 
+  .minimize {
+    background: $color-primary-1-opaque;
+  }
+
   .active-timer {
     padding: 1rem;
     position: relative;
+    background-image: url("../assets/images/swirl.png");
+    background-repeat: repeat;
     @include clearfix;
 
     .timer-name {

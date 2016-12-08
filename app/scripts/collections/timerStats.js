@@ -9,14 +9,14 @@ export default Backbone.Collection.extend({
   parse(data) {
     return data.data;
   },
-  saveStat(timerId, timeStat) {
+  saveStat(timerId, timeStat, status) {
     this.verifyStatUpload(timerId)
     .then((verifiedTimer) => {
       if (verifiedTimer) {
-        console.log('timerStat update initiated');
         let timeStamps = verifiedTimer[0].timeStamps.concat([{
           ___class: 'timeStamps',
-          timeStat
+          timeStat,
+          status
         }]);
         $.ajax({
           url: `https://api.backendless.com/v1/data/timerStats/${verifiedTimer[0].objectId}`,
@@ -24,8 +24,7 @@ export default Backbone.Collection.extend({
           data: JSON.stringify({ timeStamps }),
           contentType: 'application/JSON',
           success: (response) => {
-            console.log('Additional time stamp posted.');
-            console.log(response);
+            console.log('Additional time stamp posted for timer status: ' + status);
           },
           error: (response) => {
             console.log(response);
@@ -45,11 +44,18 @@ export default Backbone.Collection.extend({
             },
             timeStamps: {
               ___class: 'timeStamps',
-              timeStat
+              timeStat,
+              status
             }
           },
           {
-          url: 'https://api.backendless.com/v1/data/timerStats'
+          url: 'https://api.backendless.com/v1/data/timerStats',
+          success: (response) => {
+            console.log('timerStat added to server');
+          },
+          error: (response) => {
+            console.log(response);
+          }
           }
         );
       }
@@ -62,10 +68,10 @@ export default Backbone.Collection.extend({
     this.fetch({
       url: 'https://api.backendless.com/v1/data/timerStats?where=' + escape(`Users.objectId='${store.user.get('ownerId')}'`),
       success: (response) => {
-        console.log(response.toJSON());
+        // console.log(response, 'retreieved');
       },
       error: (response) => {
-        console.log(response, 'error');
+        // console.log(response, 'error');
       }
     });
   },
@@ -90,5 +96,41 @@ export default Backbone.Collection.extend({
       });
     });
   return serverResponseCheck;
-  }
+},
+computeAvgs(status) {
+  // get the sums of all the time values and divide by the total numbers
+  let numOfTimers = 0;
+  let totalTime = this.toJSON().map((timerStat) => {
+    return timerStat.timeStamps.filter((timeStamp, i, arr) => {
+      return timeStamp.status === status;
+    }).map((timeStamp, i, arr) => {
+      numOfTimers += 1;
+      return timeStamp.timeStat;
+    }).reduce((a, b) => {
+        return a + b;
+      }, 0);
+  }).reduce((a, b) => {
+    return a + b;
+  }, 0);
+  let avgTime = totalTime / numOfTimers;
+  return {
+    averageTime: store.timer.computeMeasure(avgTime),
+    numOfTimers
+  };
+},
+avgUserMeasure() {
+
+},
+mostUsed() {
+
+},
+moseUsedTypes() {
+
+},
+freqOrigin() {
+
+},
+freqDestination() {
+
+}
 });

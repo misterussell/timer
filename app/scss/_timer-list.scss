@@ -14,7 +14,10 @@
     border: .1rem solid $color-primary-2;
     margin: 1rem auto;
     width: 60%;
-    background: $color-secondary-2-1;
+    // background: $color-secondary-2-1;
+    // background-image: url("../assets/images/asanoha-400px.png");
+    background-image: url("../assets/images/swirl.png");
+    background-repeat: repeat;
 
     .select {
       display: inline-block;
