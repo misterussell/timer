@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import u from 'underscore';
 import Backbone from 'backbone';
 
 import timerStat from '../models/timerStat';
@@ -97,15 +98,15 @@ export default Backbone.Collection.extend({
     });
   return serverResponseCheck;
 },
-computeAvgs(status) {
+computeAvgs(status, value) {
   // get the sums of all the time values and divide by the total numbers
-  let numOfTimers = 0;
+  let numOfTimers = 0, average;
   let totalTime = this.toJSON().map((timerStat) => {
     return timerStat.timeStamps.filter((timeStamp, i, arr) => {
       return timeStamp.status === status;
     }).map((timeStamp, i, arr) => {
       numOfTimers += 1;
-      return timeStamp.timeStat;
+      return timeStamp[value];
     }).reduce((a, b) => {
         return a + b;
       }, 0);
@@ -113,8 +114,14 @@ computeAvgs(status) {
     return a + b;
   }, 0);
   let avgTime = totalTime / numOfTimers;
+  if (value === 'timeStat') {
+    average = store.timer.computeMeasure(avgTime);
+  } else if (value === 'date') {
+    average = 'date to go here';
+  }
   return {
-    averageTime: store.timer.computeMeasure(avgTime),
+    average,
+    stat: value,
     numOfTimers
   };
 },
@@ -122,7 +129,31 @@ avgUserMeasure() {
 
 },
 mostUsed() {
-
+  console.log(this.toJSON());
+  let maxUse = 0, maxUseCase = {};
+  this.toJSON().forEach((timerStat) => {
+    if (timerStat.timeStamps.length > maxUse) {
+      maxUse = timerStat.timeStamps.length;
+      maxUseCase = timerStat;
+    }
+  });
+  console.log(maxUseCase);
+  let status = ['start', 'paused', 'complete'];
+  let useStats = status.map((status) => {
+    return maxUseCase.timeStamps.filter((timeStamp) => {
+      if (timeStamp.status === status) {
+        return timeStamp;
+      }
+    }).length;
+  });
+  return {
+    name: maxUseCase.Timers.name,
+    note: maxUseCase.Timers.note,
+    time: maxUseCase.Timers.timerValue,
+    start: useStats[0],
+    paused: useStats[1],
+    complete: useStats[2]
+  };
 },
 moseUsedTypes() {
 

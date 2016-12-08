@@ -115,7 +115,7 @@ export default React.createClass({
     // register a timeStamp for timer start
     store.timerStats.saveStat(
       this.state.timer.objectId,
-      this.minToMill(this.state.timer.timerValue),
+      this.state.count,
       'start');
     // if there is no interval set on the state, set it
     if (!this.state.interval) {
