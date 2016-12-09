@@ -30,6 +30,7 @@ export default React.createClass({
       if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
         // calculates a timer that has the value of when the User needs to leave
         count = this.minToMill(this.props.timeConstraint - timer.timerValue);
+        this.setState({ mobilityCheck: true});
       } else {
         count = this.minToMill(timer.timerValue);
       }
@@ -178,7 +179,6 @@ export default React.createClass({
     let hours = this.refs.hours.value;
     let minutes = this.refs.minutes.value;
     let timeConstraint = (hours * 60) + minutes;
-    console.log(timeConstraint);
     // let count = (((timeConstraint - this.state.timer.timerValue) * 60) * 1000);
     let count = this.minToMill(timeConstraint - this.state.timer.timerValue);
     this.setState({

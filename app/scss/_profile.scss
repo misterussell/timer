@@ -1,0 +1,31 @@
+.stats {
+  margin-top: 1rem;
+  li {
+    background-image: url("../assets/images/asanoha-400px_light.png");
+    background-repeat: repeat;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin: 1rem auto;
+    width: 80%;
+    display: inline-block;
+
+    h2 {
+      max-width: 80%;
+      margin: 1rem auto;
+    }
+
+    .time-value {
+      display: inline-block;
+      margin: .5rem;
+    }
+
+  }
+}
+
+@media (min-width: 700px) {
+  .stats {
+    li {
+      margin: .25rem;
+    }
+  }
+}

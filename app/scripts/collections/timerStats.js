@@ -25,6 +25,7 @@ export default Backbone.Collection.extend({
           data: JSON.stringify({ timeStamps }),
           contentType: 'application/JSON',
           success: (response) => {
+            console.log(response);
             console.log('Additional time stamp posted for timer status: ' + status);
           },
           error: (response) => {
@@ -83,9 +84,11 @@ export default Backbone.Collection.extend({
         url: 'https://api.backendless.com/v1/data/timerStats?where=' + escape(`Timers.objectId='${timerId}' AND Users.objectId='${store.user.get('ownerId')}'`),
         success: (response) => {
           if (response.toJSON().length) {
+            console.log('found it', response.toJSON());
             verifiedTimer = response.toJSON();
             resolve(verifiedTimer);
           } else {
+            console.log('did not find it');
             resolve(verifiedTimer);
           }
         },
@@ -125,9 +128,6 @@ computeAvgs(status, value) {
     numOfTimers
   };
 },
-avgUserMeasure() {
-
-},
 mostUsed() {
   console.log(this.toJSON());
   let maxUse = 0, maxUseCase = {};
@@ -159,7 +159,22 @@ moseUsedTypes() {
 
 },
 freqOrigin() {
-
+  console.log(this.toJSON());
+  let dates = this.toJSON().map((timeStat) => {
+    return timeStat.timeStamps.map((timeStamp) => {
+      let unix_timeStamp = timeStamp.created;
+      let date = new Date(unix_timeStamp);
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let hours = date.getHours();
+      let minutes = '0' + date.getMinutes();
+      let seconds = '0' + date.getSeconds();
+      let formattedTimeStamp = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      return formattedTimeStamp;
+    });
+  });
+  console.log(dates);
 },
 freqDestination() {
 

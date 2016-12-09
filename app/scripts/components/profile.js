@@ -29,9 +29,10 @@ export default React.createClass({
       numComplete = this.state.stats.completed.numOfTimers;
       avgComplete = (
         <aside className="time">
-          <section className="time-value hours">{ this.state.stats.completed.average.hours } hours</section>
-          <section className="time-value minutes">{ this.state.stats.completed.average.minutes } minutes</section>
-          <section className="time-value seconds">{ this.state.stats.completed.average.seconds } seconds</section>
+          <section className="time-value hours">{ this.state.stats.completed.average.hours } h</section>
+          <section className="time-value minutes">{ this.state.stats.completed.average.minutes } m</section>
+          <section className="time-value seconds">{ this.state.stats.completed.average.seconds } s</section>
+          <section className="stat-total">You have completed { numComplete } timers.</section>
         </aside>
       );
     }
@@ -39,9 +40,10 @@ export default React.createClass({
       numPaused = this.state.stats.paused.numOfTimers;
       avgPaused = (
         <aside className="time">
-          <section className="time-value hours">{ this.state.stats.paused.average.hours } hours</section>
-          <section className="time-value minutes">{ this.state.stats.paused.average.minutes } minutes</section>
-          <section className="time-value seconds">{ this.state.stats.paused.average.seconds } seconds</section>
+          <section className="time-value hours">{ this.state.stats.paused.average.hours } h</section>
+          <section className="time-value minutes">{ this.state.stats.paused.average.minutes } m</section>
+          <section className="time-value seconds">{ this.state.stats.paused.average.seconds } s</section>
+          <section className="stat-total">You have paused { numPaused } timers.</section>
         </aside>
       );
     }
@@ -49,7 +51,7 @@ export default React.createClass({
       mostUsed = (
         <aside>
           <section>Title: { this.state.stats.mostUsed.name }</section>
-          <section>{ this.state.stats.mostUsed.note }</section>
+          <section>Timer note: { this.state.stats.mostUsed.note }</section>
           <section>Time: { this.state.stats.mostUsed.time} minutes</section>
           <section>Started { this.state.stats.mostUsed.start} times.</section>
           <section>Paused { this.state.stats.mostUsed.paused} times.</section>
@@ -58,26 +60,24 @@ export default React.createClass({
       );
     }
     return (
-      <ul>
-        <li>
+      <ul className="stats">
+        <li className="completed-timer-data">
           <h2>Average Time of Completed Timers</h2>
           <h3>{ avgComplete }</h3>
-          <h4>You have completed { numComplete } timers.</h4>
         </li>
-        <li>
+        <li className="paused-timer-data">
           <h2>Average Time of Paused Timers</h2>
           <h3>{ avgPaused }</h3>
-          <h4>You have paused { numPaused } timers.</h4>
         </li>
-        <li>
+        <li className="most-used-data">
           <h2>Most Used Timer</h2>
           <h3>{ mostUsed }</h3>
         </li>
-        <button onClick={ this.handleClick }>test</button>
       </ul>
     );
   },
   handleClick(e) {
     e.preventDefault();
+    store.timerStats.freqOrigin();
   }
 });
