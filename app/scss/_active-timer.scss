@@ -2,17 +2,37 @@
   border: .1rem solid $color-primary-1-opaque;
   width: 65%;
   margin: .5rem auto;
+  background-image: url("../assets/images/asanoha-400px_light.png");
+  background-repeat: repeat;
 
   .minimize {
     background: $color-primary-1-opaque;
+  }
+
+  .mobility-calculator {
+    box-sizing: border-box;
+
+    .time-value {
+      @include font-main(1.25rem);
+      background: white;
+      border: 0.1rem solid $color-primary-2;
+      margin: 0.25rem;
+    }
+
+    .submit {
+      border: none;
+      color: $color-primary-4;
+      background-color: $color-complement-2;
+      @include font-main(1.25rem);
+    }
   }
 
   .active-timer {
     padding: 1rem;
     position: relative;
     // background-image: url("../assets/images/swirl.png");
-    background-image: url("../assets/images/asanoha-400px_light.png");
-    background-repeat: repeat;
+    // background-image: url("../assets/images/asanoha-400px_light.png");
+    // background-repeat: repeat;
     @include clearfix;
 
     .timer-name {
@@ -24,6 +44,7 @@
 
     h2 {
       height: 100%;
+      font-size: 2rem;
       display: inline-block;
       // background: $color-primary-1;
       box-sizing: border-box;

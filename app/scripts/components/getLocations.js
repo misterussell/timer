@@ -40,7 +40,7 @@ export default React.createClass({
           ref="newLocation"
           className="new-form-input destination"
           id="last-name"
-          placeholder="Where do you need to be?" />
+          placeholder="Where do you need to be? (Full address please)" />
         <h3>What mobility options do you have?</h3>
         <input
           type="checkbox"

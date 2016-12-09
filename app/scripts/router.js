@@ -13,6 +13,7 @@ import TimerGroups from './components/timerGroups';
 import SingleTimerGroup from './components/singleTimerGroup';
 import GetLocations from './components/getLocations';
 import Profile from './components/profile';
+import About from './components/about';
 
 import store from './store';
 
@@ -31,6 +32,7 @@ const router = (
       <Route path='/timerGroup/:group' component={ SingleTimerGroup } user={ false } />
       <Route path='/plan_a_trip' component={ GetLocations } />
       <Route path='/profile' component={ Profile } />
+      <Route path='/about' component={ About } />
     </Route>
   </Router>
 );

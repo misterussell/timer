@@ -57,9 +57,21 @@ export default React.createClass({
     if ((this.state.timer.type === 'mobility') && (this.state.mobilityCheck === false)) {
       mobilityCalculator = (
         <form className="mobility-calculator" onSubmit={ this.handleSubmit }>
-          <input type="text" ref="hours" />
-          <input type="text" ref="minutes" />
-          <input type="submit" value="When do you need to be there?" />
+          <h2>How long until you have to be there?</h2>
+          <input
+            className="time-value hours"
+            type="text"
+            ref="hours"
+            placeholder="Hours"/>
+          <input
+            className="time-value minutes"
+            type="text"
+            ref="minutes"
+            placeholder="Minutes"/>
+          <input
+            className="submit"
+            type="submit"
+            value="When do I need to leave?" />
         </form>
       );
     }
@@ -212,7 +224,7 @@ export default React.createClass({
       this.state.count,
       'restart'
     );
-    // reset the value of count back to its original state 
+    // reset the value of count back to its original state
     if (this.props.groupTemplate || this.props.mobilityTemplate) {
       if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
         count = this.minToMill(this.props.timeConstraint - this.state.timer.timerValue);

@@ -96,7 +96,12 @@ export default Backbone.Model.extend({
       transit_modes: []
     };
 
-    origins = `${transitData.currentLocation.lat},${transitData.currentLocation.long}`;
+    if (transitData.currentLocation.lat && transitData.currentLocation.long) {
+      origins = `${transitData.currentLocation.lat},${transitData.currentLocation.long}`;
+    } else {
+      origins = `${transitData.currentLocation}`;
+    }
+
     destinations = `${transitData.destinations}`;
 
     let loadData = new Promise((resolve, reject) => {

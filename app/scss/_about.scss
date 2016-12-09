@@ -1,0 +1,45 @@
+.about-page {
+  margin-top: 1rem;
+
+  .title {
+    color: $color-primary-3;
+    background: $color-primary-1-opaque;
+  }
+
+  .about-pic {
+    width: 40%;
+    margin: 0 auto;
+    border-radius: 5%;
+  }
+
+  .about-text {
+    margin: 1rem;
+  }
+
+  .highlight {
+    color: $color-secondary-2-2;
+  }
+
+  .quick-link {
+    color: $color-secondary-1-2;
+
+    &:hover {
+      background-color: $color-primary-1-opaque;
+    }
+  }
+
+}
+
+@media (min-width: 700px) {
+  .about-page {
+
+    .about-pic {
+      width: 30%;
+    }
+
+    .about-text {
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
+}
