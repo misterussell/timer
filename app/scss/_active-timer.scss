@@ -23,6 +23,7 @@
       border: none;
       color: $color-primary-4;
       background-color: $color-complement-2;
+      margin-top: 1rem;
       @include font-main(1.25rem);
     }
   }
@@ -68,6 +69,16 @@
     .seconds::after {
       content: 's';
       color: $color-secondary-2-3;
+    }
+
+    .action-button {
+      border: none;
+      background: none;
+      margin: 0.5rem;
+
+      &:hover {
+        background: transparentize($color-primary-2, 0.5);
+      }
     }
   }
 }

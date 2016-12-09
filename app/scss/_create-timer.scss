@@ -11,6 +11,7 @@
       border: 0.1rem solid $color-primary-2;
       @include font-main(1.5rem);
       padding: 0.2rem;
+      text-align: center;
     }
 
     .hide {
@@ -49,6 +50,7 @@
     background: $color-complement-2;
     color: $color-primary-4;
     width: 80%;
+    margin-top: 1rem;
   }
 }
 

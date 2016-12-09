@@ -5,7 +5,7 @@ export default React.createClass({
     let deleteButton = null;
     if (this.props.owner === window.localStorage['ownerId']) {
       deleteButton = (
-        <button className="delete"
+        <button className="delete action-button"
           onClick={ this.handleDelete }>
           <i className="fa fa-trash-o" aria-hidden="true"></i>
         </button>
@@ -14,17 +14,17 @@ export default React.createClass({
     return (
       <div className="timer-buttons">
         <button
-          className="start"
+          className="start action-button"
           onClick={ this.handleStart }>
           <i className="fa fa-play" aria-hidden="true"></i>
         </button>
         <button
-          className="pause"
+          className="pause action-button"
           onClick={ this.handlePause }>
           <i className="fa fa-pause" aria-hidden="true"></i>
         </button>
         <button
-          className="reset"
+          className="reset action-button"
           onClick={ this.handleReset }>
           <i className="fa fa-refresh" aria-hidden="true"></i>
         </button>

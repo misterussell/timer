@@ -15,7 +15,6 @@ export default React.createClass({
     store.user.on('update change', () => {
       this.setState({auth: store.user.get('auth')});
     });
-    browserHistory.push('about');
   },
   render() {
     return (

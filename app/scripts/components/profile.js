@@ -24,25 +24,43 @@ export default React.createClass({
     store.timerStats.off();
   },
   render() {
-    let avgComplete = null, avgPaused = null, numComplete = 0, numPaused = 0, mostUsed = null;
+    let avgComplete = null, numComplete = 0, verifyCompleted, avgPaused = null, numPaused = 0, verifyPaused, mostUsed = null;
     if (this.state.stats.completed) {
       numComplete = this.state.stats.completed.numOfTimers;
+      if (numComplete === 0) {
+        verifyCompleted = <section className="time-value">Please complete some timers, so that we can get your average completed time.</section>;
+      } else {
+        verifyCompleted = (
+          <div>
+            <section className="time-value hours">{ this.state.stats.completed.average.hours } h</section>
+            <section className="time-value minutes">{ this.state.stats.completed.average.minutes } m</section>
+            <section className="time-value seconds">{ this.state.stats.completed.average.seconds } s</section>
+          </div>
+        );
+      }
       avgComplete = (
         <aside className="time">
-          <section className="time-value hours">{ this.state.stats.completed.average.hours } h</section>
-          <section className="time-value minutes">{ this.state.stats.completed.average.minutes } m</section>
-          <section className="time-value seconds">{ this.state.stats.completed.average.seconds } s</section>
+          { verifyCompleted }
           <section className="stat-total">You have completed { numComplete } timers.</section>
         </aside>
       );
     }
     if (this.state.stats.paused) {
       numPaused = this.state.stats.paused.numOfTimers;
+      if (numPaused === 0) {
+        verifyPaused = <section className="time-value">You have not yet paused any timers.</section>;
+      } else {
+        verifyPaused = (
+          <div>
+            <section className="time-value hours">{ this.state.stats.paused.average.hours } h</section>
+            <section className="time-value minutes">{ this.state.stats.paused.average.minutes } m</section>
+            <section className="time-value seconds">{ this.state.stats.paused.average.seconds } s</section>
+          </div>
+        );
+      }
       avgPaused = (
         <aside className="time">
-          <section className="time-value hours">{ this.state.stats.paused.average.hours } h</section>
-          <section className="time-value minutes">{ this.state.stats.paused.average.minutes } m</section>
-          <section className="time-value seconds">{ this.state.stats.paused.average.seconds } s</section>
+          { verifyPaused }
           <section className="stat-total">You have paused { numPaused } timers.</section>
         </aside>
       );

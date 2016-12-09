@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 
 import Home from './components/home';
 import Login from './components/login';
@@ -20,6 +20,7 @@ import store from './store';
 const router = (
   <Router history={ browserHistory } >
     <Route path='/' component={ Home } >
+    <IndexRoute component={ About } />
       <Route path='/login' component={ Login } />
       <Route path='/register' component={ Register } />
       <Route path='/forgotPassword' component={ ForgotPassword } />
@@ -32,7 +33,6 @@ const router = (
       <Route path='/timerGroup/:group' component={ SingleTimerGroup } user={ false } />
       <Route path='/plan_a_trip' component={ GetLocations } />
       <Route path='/profile' component={ Profile } />
-      <Route path='/about' component={ About } />
     </Route>
   </Router>
 );

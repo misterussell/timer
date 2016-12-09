@@ -5,10 +5,12 @@ import Timer from '../models/timer';
 export default Backbone.Collection.extend({
   model: Timer,
   parse(data) {
+
     return data.data;
   },
   setupTimer(timerData, name, note) {
-    let timerValue = this.calculateTime(timerData.seconds, timerData.minutes, timerData.hours);
+    let timerValue = String(this.calculateTime(timerData.seconds, timerData.minutes, timerData.hours));
+    console.log(timerValue);
     return {
       timerValue,
       name,
@@ -18,11 +20,12 @@ export default Backbone.Collection.extend({
   calculateTime(seconds, minutes, hours) {
     // as the time measurements are stored as minute values in backendless we will convert all times to minutes reasoning is that these timers will predominently be for increments of time in minutes
     let convertSeconds = seconds / 60;
-    let convertHours = Math.floor(hours * 60);
+    let convertHours = hours * 60;
     let total = Number(convertSeconds) + Number(minutes) + Number(convertHours);
     return total;
   },
   saveTimer(timerData, name, note) {
+    console.log(note);
     let newTimer = this.setupTimer(timerData, name, note);
 
     let uploadCheck = new Promise((resolve, reject) => {
@@ -62,10 +65,11 @@ export default Backbone.Collection.extend({
     let download = new Promise((resolve, reject) => {
       this.fetch({
         // url: 'https://api.backendless.com/v1/data/Timers',
-        url: 'https://api.backendless.com/v1/data/Timers?pageSize=100',
+        // url: 'https://api.backendless.com/v1/data/Timers?pageSize=100',
+        url: 'https://api.backendless.com/v1/data/Timers?pageSize=100&sortBy=timerValue%20asc',
         success: (response) => {
           // if (this.length < response.totalObjects) {
-          //
+
           // }
           if (response) {
             resolve(response);

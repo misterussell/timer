@@ -19,7 +19,7 @@ export default React.createClass({
       // it may be better to have this not load async, but assume that all data has been saved to the server
       store.timers.fetch({url: `https://api.backendless.com/v1/data/Timers?where=` + escape(`ownerId='${store.user.get('ownerId')}'`)});
     } else {
-      store.timers.fetch({url: `https://api.backendless.com/v1/data/Timers?where=default=true`});
+      store.timers.fetch({url: `https://api.backendless.com/v1/data/Timers?sortBy=timerValue%20asc&where=default=true`});
     }
     store.timers.on('update change', () => {
       this.setState({timers: store.timers.toJSON()});

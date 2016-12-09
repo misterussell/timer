@@ -2,7 +2,9 @@
 // The imports below will handle chai-enzyme testing
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import jsdom from 'jsdom';
+// import jsdom from 'jsdom';
+
+var jsdom = require('jsdom');
 
 // expect is imported for standard testing
 // import { expect } from 'chai';

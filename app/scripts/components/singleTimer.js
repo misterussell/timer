@@ -7,16 +7,20 @@ import store from '../store';
 
 export default React.createClass({
   render() {
-    let note = this.props.timer.note;
+    let note = null;
 
-    if (this.props.timer.note === '') {
+    if (this.props.timer.origin && this.props.timer.destination) {
       note = `${this.props.timer.origin} to ${this.props.timer.destination}`;
+    }
+
+    if (this.props.timer.note !== '') {
+      note = this.props.timer.note;
     }
 
     return (
       <li className="timer-template">
         <h2 className="timer-name">{ this.props.timer.name }</h2>
-        <h3 className="timer-value">{ this.props.timer.timerValue }</h3>
+        <h3 className="timer-value">{ this.props.timer.timerValue } minutes</h3>
         <h4 className="timer-note">
           { note }
         </h4>
