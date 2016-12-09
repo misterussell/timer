@@ -23,8 +23,7 @@ export default React.createClass({
     let timer, count;
     if (store.timers.toJSON().length < 1) {
       // condition check to verify if data loaded
-      this.fetch({ url: `https://api.backendless.com/v1/data/Timers/${this.props.params.id}`});
-      // this.loadData();
+      this.loadData();
     } else if (this.props.groupTemplate || this.props.mobilityTemplate) {
       // condition check to verify if part of group of timers, if is sent in with time constraint if will calculate when you need to leave
       timer = this.props.timer;
