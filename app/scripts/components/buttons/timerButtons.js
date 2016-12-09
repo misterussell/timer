@@ -13,13 +13,20 @@ export default React.createClass({
     }
     return (
       <div className="timer-buttons">
-        <button className="start"
+        <button
+          className="start"
           onClick={ this.handleStart }>
           <i className="fa fa-play" aria-hidden="true"></i>
         </button>
-        <button className="pause"
+        <button
+          className="pause"
           onClick={ this.handlePause }>
           <i className="fa fa-pause" aria-hidden="true"></i>
+        </button>
+        <button
+          className="reset"
+          onClick={ this.handleReset }>
+          <i className="fa fa-refresh" aria-hidden="true"></i>
         </button>
         { deleteButton }
       </div>
@@ -36,5 +43,9 @@ export default React.createClass({
   handleDelete(e) {
     e.preventDefault();
     this.props.deleteCallback();
+  },
+  handleReset(e) {
+    e.preventDefault();
+    this.props.resetCallback();
   }
 });

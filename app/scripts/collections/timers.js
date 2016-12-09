@@ -61,14 +61,18 @@ export default Backbone.Collection.extend({
   // } else {
     let download = new Promise((resolve, reject) => {
       this.fetch({
-        url: 'https://api.backendless.com/v1/data/Timers',
+        // url: 'https://api.backendless.com/v1/data/Timers',
+        url: 'https://api.backendless.com/v1/data/Timers?pageSize=100',
         success: (response) => {
+          // if (this.length < response.totalObjects) {
+          //
+          // }
           if (response) {
             resolve(response);
           }
         },
         error: (response) => {
-          reject;
+          reject(response);
         }
       });
     });

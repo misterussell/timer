@@ -91,6 +91,7 @@ export default React.createClass({
     transitData.transit_modes = this.getTransitMethods();
     store.user.getTraveltime(transitData)
     .then((transitDataResponse) => {
+      // this promise verifies that the api call to googles distance API was succesful and that there is now a timer value to calculate against
       let timeConstraint = Number(this.refs.minutes.value) + (Number(this.refs.hours.value) * 60);
       this.setState({
         timeConstraint,
@@ -98,6 +99,7 @@ export default React.createClass({
       });
       store.timers.createTransitTimers(this.state)
       .then((timers) => {
+        //this promise verifies that the data was successfully added to backendless so that it can be used in the future
         console.log('all data saved!');
         this.setState({ timers });
       })

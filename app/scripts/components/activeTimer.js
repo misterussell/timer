@@ -85,6 +85,7 @@ export default React.createClass({
           startCallback={ this.startTimer }
           pauseCallback={ this.pauseTimer }
           deleteCallback={ this.deleteTimer }
+          resetCallback={ this.resetTimer }
           owner={ this.state.timer.ownerId } />
         }
       </div>
@@ -172,7 +173,7 @@ export default React.createClass({
         count
       });
       this.calcRemainder(count);
-    }).catch(() => { console.log('Not retrieved.') });
+    }).catch((response) => { console.log('Not retrieved.', response) });
   },
   handleSubmit(e) {
     e.preventDefault();
@@ -202,6 +203,9 @@ export default React.createClass({
     .catch(() => {
       alert('item not deleted');
     });
+  },
+  resetTimer() {
+    console.log('this will reset the timer before it is over.');
   },
   minToMill(minutes) {
     let value = (minutes * 60) * 1000;
