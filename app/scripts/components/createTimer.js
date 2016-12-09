@@ -1,62 +1,73 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
 
-import NumberInput from './numberInput';
-
 import store from '../store';
 
 //route: /createTimer
 export default React.createClass({
-  getInitialState() {
-    return {
-      hours: '',
-      minutes: '',
-      seconds: ''
-    };
-  },
   render() {
     return (
       <form className="create-timer" onSubmit={ this.handleSubmit } >
-        <input type="text"
-          ref="title"
-          className="timer-title"
-          placeholder="Timer Name" />
-        <NumberInput
-          className="hours timevalue"
-          measure={ 'hours' }
-          value={ this.state.hours }
-          callBack={ this.handleTime } />
-        <NumberInput
-          className="hours timevalue"
-          measure={ 'minutes' }
-          value={ this.state.minutes }
-          callBack={ this.handleTime } />
-        <NumberInput
-          className="hours timevalue"
-          measure={ 'seconds' }
-          value={ this.state.seconds }
-          callBack={ this.handleTime } />
-        <input type="text"
-          ref="note"
-          className="note"
-          placeholder="What's this timer for?" />
-        <input type="button" id="save" value="Save & Start" onClick={ this.handleSave }/>
+        <div className="input-wrapper">
+          <label className="hide" htmlFor="title">Timer Name</label>
+          <input
+            type="text"
+            id="title"
+            ref="title"
+            className="timer-title"
+            placeholder="Timer Name" />
+        </div>
+        <div className="input-wrapper">
+          <label htmlFor="hours">Hours</label>
+          <input
+            type="text"
+            id="hours"
+            ref="hours"
+            placeholder="00"
+            className="hours timevalue" />
+        </div>
+        <div className="input-wrapper">
+        <label htmlFor="minutes">Minutes</label>
+          <input
+            type="text"
+            id="minutes"
+            ref="minutes"
+            placeholder="00"
+            className="minutes timevalue" />
+          </div>
+        <div className="input-wrapper">
+        <label htmlFor="seconds">Seconds</label>
+          <input
+            type="text"
+            ref="seconds"
+            id="seconds"
+            ref="seconds"
+            placeholder="00"
+            className="seconds timevalue" />
+        </div>
+        <label htmlFor="note">Timer Note:</label>
+        <div className="input-wrapper">
+          <input type="text"
+            id="note"
+            ref="note"
+            className="note"
+            placeholder="What's this timer for?" />
+        </div>
+        <input type="button" id="save" value="Save & Start Timer" onClick={ this.handleSave }/>
       </form>
     );
   },
-  handleTime(measure, value) {
-    var state={};
-    state[measure] = value;
-    this.setState(state);
-    // dynamic timer generation below
-    // if (this.state.seconds.length === 2) {
-    //   this.setState({ minutes: value });
-    // } else this.setState(state);
-  },
   handleSave(e) {
     e.preventDefault();
+
+    let timerData = {
+      hours: this.refs.hours.value,
+      minutes: this.refs.minutes.value,
+      seconds: this.refs.seconds.value
+    };
+
     return store.timers.saveTimer(
-      this.state,
+      timerData,
       this.refs.title.value,
       this.refs.note.value
     ).then((link) => {

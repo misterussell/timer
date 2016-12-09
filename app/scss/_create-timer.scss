@@ -1,23 +1,73 @@
 .create-timer {
+  box-sizing: border-box;
+  @include font-main(1.5rem);
 
-  input {
-    width: 40%;
-    margin: 0 auto;
-  }
-
-  .timer-title, .note {
-    display: block;
-  }
-
-  .time-value {
-    display: inline-block;
-    width: 15%;
-  }
-
-  .hours, .minutes {
-
-    &:after {
-      content: ":";
+  .input-wrapper {
+    input {
+      box-sizing: border-box;
+      width: 30%;
+      min-width: 95px;
+      margin: 0.25rem auto;
+      border: 0.1rem solid $color-primary-2;
+      @include font-main(1.5rem);
+      padding: 0.2rem;
     }
+
+    .hide {
+      display: none;
+    }
+
+    label {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 30%;
+      min-width: 95px;
+      background: $color-primary-2;
+      color: $color-primary-4;
+      border: 0.1rem solid $color-primary-2;
+      margin: 0.25rem auto;
+      padding: 0.2rem;
+    }
+
+    .timer-title {
+      display: block;
+      width: 60%;
+      min-width: 180px
+    }
+
+    .note {
+      display: block;
+      width: 80%;
+      min-width: 250px;
+    }
+
+  }
+
+  #save {
+    border: none;
+    box-sizing: border-box;
+    background: $color-complement-2;
+    color: $color-primary-4;
+    width: 80%;
+  }
+}
+
+@media (min-width: 500px) {
+  .timer-title {
+    max-width: 300px;
+  }
+  .input-wrapper {
+
+    input, label {
+      max-width: 300px;
+    }
+
+    .note {
+      max-width: 600px;
+    }
+  }
+
+  #save {
+    max-width: 300px;
   }
 }
