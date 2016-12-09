@@ -124,7 +124,7 @@ export default React.createClass({
       this.setState({ interval: setInterval(this.updateTimer, 1000) });
     }
     if (this.state.count === 0) {
-      let timer, count;
+      let count;
       if (this.props.groupTemplate || this.props.mobilityTemplate) {
         if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
           count = this.minToMill(this.props.timeConstraint - this.state.timer.timerValue);
@@ -205,7 +205,25 @@ export default React.createClass({
     });
   },
   resetTimer() {
-    console.log('this will reset the timer before it is over.');
+    let count;
+    // timeStamp the reset and the current count of the timer
+    store.timerStats.saveStat(
+      this.state.timer.objectId,
+      this.state.count,
+      'restart'
+    );
+    // reset the value of count back to its original state 
+    if (this.props.groupTemplate || this.props.mobilityTemplate) {
+      if (this.props.mobilityTemplate && (this.props.timeConstraint !== 0)) {
+        count = this.minToMill(this.props.timeConstraint - this.state.timer.timerValue);
+      } else {
+        count = this.minToMill(this.state.timer.timerValue);
+      }
+      this.calcRemainder(count);
+    } else {
+      count = this.minToMill(this.state.timer.timerValue);
+      this.calcRemainder(count);
+    }
   },
   minToMill(minutes) {
     let value = (minutes * 60) * 1000;
