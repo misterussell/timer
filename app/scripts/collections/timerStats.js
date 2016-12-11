@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import u from 'underscore';
+import _ from 'underscore';
 import Backbone from 'backbone';
+import moment from 'moment';
 
 import timerStat from '../models/timerStat';
 import store from '../store';
@@ -129,7 +130,6 @@ computeAvgs(status, value) {
   };
 },
 mostUsed() {
-  console.log(this.toJSON());
   let maxUse = 0, maxUseCase = {};
   this.toJSON().forEach((timerStat) => {
     if (timerStat.timeStamps.length > maxUse) {
@@ -137,7 +137,6 @@ mostUsed() {
       maxUseCase = timerStat;
     }
   });
-  console.log(maxUseCase);
   let status = ['start', 'paused', 'complete'];
   let useStats = status.map((status) => {
     return maxUseCase.timeStamps.filter((timeStamp) => {
@@ -158,8 +157,14 @@ mostUsed() {
 moseUsedTypes() {
 
 },
-freqOrigin() {
-  console.log(this.toJSON());
+freqUse() {
+  // object variables to load when cycling through server data to count timeStamps for specific periods
+  let years = {}, months = {}, days = {};
+  // variables for finding the date with the most clicks
+  let freqYear = 0, freqYearIndex = 0;
+  let freqMonth = 0, freqMonthIndex = 0;
+  let freqDay = 0, freqDayIndex = 0;
+
   let dates = this.toJSON().map((timeStat) => {
     return timeStat.timeStamps.map((timeStamp) => {
       let unix_timeStamp = timeStamp.created;
@@ -170,11 +175,84 @@ freqOrigin() {
       let hours = date.getHours();
       let minutes = '0' + date.getMinutes();
       let seconds = '0' + date.getSeconds();
-      let formattedTimeStamp = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-      return formattedTimeStamp;
+      // let formattedTimeStamp = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+      let fulldate = {
+        day,
+        month,
+        year,
+        hours,
+        minutes: minutes.substr(-2),
+        seconds: seconds.substr(-2)
+      };
+      return fulldate;
     });
   });
-  console.log(dates);
+
+  dates.forEach((date) => {
+    date.forEach((timeStamp) => {
+
+      if ( !years[timeStamp.year] ) {
+        years[timeStamp.year] = 1;
+      } else {
+        years[timeStamp.year] += 1;
+      }
+
+      if ( !months[timeStamp.month] ) {
+        months[timeStamp.month] = 1;
+      } else {
+        months[timeStamp.month] += 1;
+      }
+
+    });
+  });
+
+  // find most used year
+  _.mapObject(years, (year, i) => {
+    if ( year > freqYear ) {
+      freqYear = year;
+      freqYearIndex = i;
+    }
+  });
+
+  // find most used month
+  _.mapObject(months, (month, i) => {
+    if ( month > freqMonth ) {
+      freqMonth = month;
+      freqMonthIndex = i;
+    }
+  });
+
+  // the date needs to be seperated with a filter so that it does not count days from other months. (similarly will need to happen with year)
+  dates.forEach((date) => {
+    return date.filter((timeStamp) => {
+      if (String(timeStamp.month) === String(freqMonthIndex)) {
+        return timeStamp;
+      } else {
+        console.log('not found');
+      }
+    }).forEach((matchedDate) => {
+      if ( !days[matchedDate.day] ) {
+        days[matchedDate.day] = 1;
+      } else {
+        days[matchedDate.day] += 1;
+      }
+    });
+  });
+
+  // find most used date
+  _.mapObject(days, (day, i) => {
+    if ( day > freqDay ) {
+      freqDay = day;
+      freqDayIndex = i;
+    }
+  });
+
+  let dateString = moment(new Date(freqMonthIndex + '/' + freqDayIndex + '/' + freqYearIndex)).format('dddd, MMMM Do YYYY');
+
+  return {
+    date: dateString,
+    actions: freqDay
+  };
 },
 freqDestination() {
 

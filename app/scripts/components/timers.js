@@ -18,7 +18,7 @@ export default React.createClass({
         <Link className="timer-link" to="plan_a_trip">Create a mobility timer</Link>
         <Link className="timer-link" to="myTimers">View My Timers</Link>
         <Link className="timer-link" to="timerGroups">Select a set of premade timers</Link>
-        <Link className="timer-link" to="profile">User Profile</Link>
+        <Link className="timer-link" to="dashboard">Dashboard</Link>
       </div>
     );
   }
