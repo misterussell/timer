@@ -98,23 +98,38 @@ createTransitTimers(allData) {
         type: 'mobility'
       };
       console.log(newTimer.timerValue);
-        this.create(
-          newTimer,
-          {
-            url: 'https://api.backendless.com/v1/data/Timers',
-            success: (response) => {
-              console.log(response.toJSON());
-              timers.push(response.toJSON())
-              if (timers.length === arr.length) {
-                resolve(timers);
+      this.fetch({
+        url: `https://api.backendless.com/v1/data/Timers?where=` + escape(`origin='${allData.transitDataResponse.origin}' AND destination='${allData.transitDataResponse.destination}' AND name='${mode.mode}'`),
+        success: (response) => {
+          if (response.length === 0) {
+            this.create(
+              newTimer,
+              {
+                url: 'https://api.backendless.com/v1/data/Timers',
+                success: (response) => {
+                  timers.push(response.toJSON())
+                  if (timers.length === arr.length) {
+                    resolve(timers);
+                  }
+                },
+                error: (response) => {
+                  console.log(response);
+                  reject;
+                }
               }
-            },
-            error: (response) => {
-              console.log(response);
-              reject;
+            );
+          } else {
+            timers.push(response.toJSON());
+            if (timers.length === arr.length) {
+              resolve(timers);
             }
           }
-        );
+        },
+        error: (response) => {
+          console.log(response);
+          reject;
+        }
+      });
     });
   });
   return uploadCheck;
