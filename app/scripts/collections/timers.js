@@ -9,6 +9,7 @@ export default Backbone.Collection.extend({
     return data.data;
   },
   setupTimer(timerData, name, note) {
+    console.log(timerData);
     let timerValue = String(this.calculateTime(timerData.seconds, timerData.minutes, timerData.hours));
     console.log(timerValue);
     return {
@@ -22,6 +23,7 @@ export default Backbone.Collection.extend({
     let convertSeconds = seconds / 60;
     let convertHours = hours * 60;
     let total = Number(convertSeconds) + Number(minutes) + Number(convertHours);
+    console.log(total);
     return total;
   },
   saveTimer(timerData, name, note) {
@@ -89,12 +91,13 @@ createTransitTimers(allData) {
   let uploadCheck = new Promise((resolve, reject) => {
     allData.transitDataResponse.transit_modes.forEach((mode, i, arr) => {
       let newTimer = {
-        timerValue: Math.floor(mode.travelTime),
+        timerValue: String(Math.floor(mode.travelTime)),
         name: mode.mode,
         origin: allData.transitDataResponse.origin ,
         destination: allData.transitDataResponse.destination,
         type: 'mobility'
       };
+      console.log(newTimer.timerValue);
         this.create(
           newTimer,
           {
