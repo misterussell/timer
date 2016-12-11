@@ -148,7 +148,6 @@ export default Backbone.Model.extend({
         positionData.lat = position.coords.latitude;
         positionData.long = position.coords.longitude;
         if (positionData.lat && positionData.long) {
-          console.log(positionData);
           resolve(positionData);
         } else {
           reject;
