@@ -29,11 +29,11 @@ export default React.createClass({
       <div className="timer-group-links">
         <Link className="timer-group" to="timerGroup/productivity_timers">
           <h3 className="title">Productivity Timers</h3>
-          <h4 className="description">Timers centered around productivity in the work enviornment</h4>
+          <h4 className="description">Timers centered around workflow productivity and time management.</h4>
         </Link>
         <Link className="timer-group" to="timerGroup/mindfulness_timers">
           <h3 className="title">Mindfulness Timers</h3>
-          <h4 className="description">Timers centered around mindfulness</h4>
+          <h4 className="description">Timers centered around daily mindfulness.</h4>
         </Link>
       </div>
     );

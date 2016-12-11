@@ -2,6 +2,13 @@
   box-sizing: border-box;
   @include font-main(1.5rem);
 
+  .page-title {
+    @include font-main(2.5rem);
+    color: $color-primary-3;
+    margin: .25rem;
+    margin-top: 1rem;
+  }
+
   .input-wrapper {
     input {
       box-sizing: border-box;

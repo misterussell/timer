@@ -8,6 +8,7 @@ export default React.createClass({
   render() {
     return (
       <form className="create-timer" onSubmit={ this.handleSubmit } >
+        <h1 className="page-title">Create a timer:</h1>
         <div className="input-wrapper">
           <label className="hide" htmlFor="title">Timer Name</label>
           <input
