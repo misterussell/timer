@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 
 import TimerButtons from './buttons/timerButtons';
 import MinimizeButton from './buttons/minimizeButton';
+import VisualProgress from './visualProgress';
 
 import store from '../store';
 
@@ -16,7 +17,8 @@ export default React.createClass({
       minutes: 0,
       seconds: 0,
       mobilityCheck: false,
-      minimize: false
+      minimize: false,
+      visualPlayState: 'paused'
     };
   },
   componentWillMount() {
@@ -109,6 +111,7 @@ export default React.createClass({
         { minimizeButton }
         { mobilityCalculator }
         { timer }
+        <VisualProgress timeVal={ this.minToMill(this.state.timer.timerValue) / 1000 } playState={ this.state.visualPlayState }/>
       </div>
     );
   },
@@ -131,6 +134,7 @@ export default React.createClass({
       this.state.timer.objectId,
       this.state.count,
       'start');
+    this.setState({ visualPlayState: 'running'});
     // if there is no interval set on the state, set it
     if (!this.state.interval) {
       this.setState({ interval: setInterval(this.updateTimer, 1000) });

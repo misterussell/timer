@@ -40,7 +40,7 @@ export default React.createClass({
           ref="newLocation"
           className="new-form-input destination"
           id="last-name"
-          placeholder="Where do you need to be? (Full address please)" />
+          placeholder="Destination (Full address please)" />
         <h3>What mobility options do you have?</h3>
         <input
           type="checkbox"
@@ -110,11 +110,6 @@ export default React.createClass({
     .catch(() => {
       alert('Data not retreived from Google API, please try again.');
     });
-  },
-  handleTime(measure, value) {
-    var state={};
-    state[measure] = value;
-    this.setState(state);
   },
   getCurrentLocation(e) {
     e.preventDefault();

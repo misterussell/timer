@@ -1,0 +1,35 @@
+.progress {
+    width: 100%;
+    height: 50px;
+    // border: 1px solid $color-primary-3;
+    border-top: 1px solid $color-primary-1;
+    position: relative;
+}
+
+// .progress:after {
+//     content:'\A';
+//     position:absolute;
+//     background: $color-primary-3;
+//     top:0; bottom:0;
+//     left:0;
+//     width:100%;
+//     -webkit-animation: filler 100s ease-in-out;
+//     -moz-animation: filler 100s ease-in-out;
+//     animation: filler 100s ease-in-out;
+// }
+
+@-webkit-keyframes filler {
+    0% {
+        width:0;
+    }
+}
+@-moz-keyframes filler {
+    0% {
+        width:0;
+    }
+}
+@keyframes filler {
+    0% {
+        width:0;
+    }
+}
