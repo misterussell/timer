@@ -78,3 +78,4 @@
 - [Distance Matrix Output Documentation](https://developers.google.com/maps/documentation/distance-matrix/intro#travel_modes)
 - [Google Distance Matrix API Proofing](images/apireturn.png) - This service requires a registered API key that can be linked to other google maps API's for additional resources
 - [Google GeoLocation API Documentation](https://developers.google.com/maps/documentation/)
+- [Recharts API](http://recharts.org/) - This API generates SVG charts in React from an array of objects

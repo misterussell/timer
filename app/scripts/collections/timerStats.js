@@ -255,7 +255,7 @@ freqUse() {
     actions: freqDay
   };
 },
-useChartData() {
+useByDate() {
 
   let stats = this.toJSON().map((stat) => {
     return stat.timeStamps.map((timeStamp) => {
@@ -274,37 +274,15 @@ useChartData() {
       });
     });
 
-  console.log(stats);
-
   let flatStats = stats.reduce((a, b) => {
     return a.concat(b);
   }, []);
 
-  console.log(flatStats);
-
-  // an example of what we want a to look like in the reduce
-// {
-//     '12/11/16': {
-//         paused: 1,
-//         started: 2,
-//         complete: 0
-//     }
-// }
-
-// an example of what b looks like in the reduce function
-// b = {
-//     date: '12/11/15',
-//     status:
-// }
-
-// if a[b.date] exists and a[b.date][b.status]
-//     add 1
-// else create a[b.date][b.status]
-// retun a
-
+// verify the number of status for each date in the array
 let statCount = flatStats.reduce((a, b)=> {
   if ( !a[b.date]) {
     a[b.date] = {
+      date: b.date,
       [b.status]: 1
     };
   } else if( !a[b.date][b.status] ) {
@@ -315,8 +293,28 @@ let statCount = flatStats.reduce((a, b)=> {
   return a;
 }, {});
 
+// fill in 0's for status with no data (to keep trendline visible on chart)
+let useByDate = _.map(statCount, (day) => {
+  if ( !day['Completed'] || !day['Paused'] || !day['Started'] ) {
+    if ( !day['Completed'] ) {
+      day['Completed'] = 0;
+    }
+    if (!day['Paused']) {
+      day['Paused'] = 0;
+    }
+    if (!day['Started']) {
+      day['Started'] = 0;
+    }
+    return day;
+  } else {
+    return day;
+  }
+});
 
-console.log(statCount);
+return useByDate ;
 
+},
+useByType() {
+  console.log(this.toJSON());
 }
 });
