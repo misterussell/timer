@@ -11,7 +11,7 @@ export default React.createClass({
     };
   },
   componentWillMount() {
-    store.timers.fetch({url: `http://api.backendless.com/v1/data/multiTimerTemplates?loadRelations=timers`});
+    store.timers.fetch({url: `https://api.backendless.com/v1/data/multiTimerTemplates?loadRelations=timers`});
     store.timers.fetch({
       url: `https://api.backendless.com/v1/data/Timers?where=` + escape(`ownerId='${store.user.get('ownerId')}' AND type='mobility'`),
       remove: false,

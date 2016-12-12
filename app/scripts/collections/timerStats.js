@@ -145,6 +145,7 @@ mostUsed() {
       }
     }).length;
   });
+
   return {
     name: maxUseCase.Timers.name,
     note: maxUseCase.Timers.note,
@@ -254,7 +255,18 @@ freqUse() {
     actions: freqDay
   };
 },
-freqDestination() {
+useChartData() {
+  console.log(this.toJSON());
+  let stats = this.toJSON().map((stat) => {
+    return stat.timeStamps.map((timeStamp) => {
+        return {
+          date: moment(new Date(timeStamp.created)).format('MM/DD/YY'),
+          status: timeStamp.status,
+        };
+      });
+    });
+
+  console.log(stats);
 
 }
 });
