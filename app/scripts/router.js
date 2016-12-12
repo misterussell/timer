@@ -15,6 +15,7 @@ import GetLocations from './components/getLocations';
 import Profile from './components/profile';
 import Dashboard from './components/dashboard';
 import About from './components/about';
+import FailedRoute from './components/failedRoute';
 
 import store from './store';
 
@@ -36,6 +37,7 @@ const router = (
       <Route path='/profile' component={ Profile } />
       <Route path='/dashboard' component={ Dashboard } />
     </Route>
+    <Route path="*" component={ FailedRoute } />
   </Router>
 );
 

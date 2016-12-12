@@ -107,8 +107,6 @@ export default React.createClass({
       );
     }
 
-    
-
     return (
       <div className="active-timer-container">
         { minimizeButton }

@@ -21,6 +21,17 @@ export default Backbone.Model.extend({
     defaultTimers: false,
     pwReset: null
   },
+  validateUserToken() {
+    this.fetch({
+      url: `https://api.backendless.com/v1/users/isvalidusertoken/${window.localStorage['user-token']}`,
+      response: (response) => {
+        console.log(response.toJSON());
+      },
+      error: (response) => {
+        console.log(response.toJSON());
+      }
+    });
+  },
   register(firstName, lastName, email, password, confirmPW) {
     if ( password === confirmPW ) {
       let name = firstName + lastName;
