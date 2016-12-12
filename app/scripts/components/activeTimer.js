@@ -1,9 +1,10 @@
 import React from 'react';
+import TGroup from 'react-addons-css-transition-group';
+
 import { browserHistory } from 'react-router';
 
 import TimerButtons from './buttons/timerButtons';
 import MinimizeButton from './buttons/minimizeButton';
-import VisualProgress from './visualProgress';
 
 import store from '../store';
 
@@ -18,7 +19,7 @@ export default React.createClass({
       seconds: 0,
       mobilityCheck: false,
       minimize: false,
-      visualPlayState: 'paused'
+      strobe: false
     };
   },
   componentWillMount() {
@@ -106,12 +107,13 @@ export default React.createClass({
       );
     }
 
+    
+
     return (
       <div className="active-timer-container">
         { minimizeButton }
         { mobilityCalculator }
         { timer }
-        <VisualProgress timeVal={ this.minToMill(this.state.timer.timerValue) / 1000 } playState={ this.state.visualPlayState }/>
       </div>
     );
   },
@@ -125,6 +127,7 @@ export default React.createClass({
         this.state.timer.objectId,
         this.minToMill(this.state.timer.timerValue),
         'complete');
+      this.setState({ strobe: true });
       return store.timer.completeTimer(this.state.timer.notificationSound);
     }
   },
@@ -134,11 +137,12 @@ export default React.createClass({
       this.state.timer.objectId,
       this.state.count,
       'start');
-    this.setState({ visualPlayState: 'running'});
+
     // if there is no interval set on the state, set it
     if (!this.state.interval) {
       this.setState({ interval: setInterval(this.updateTimer, 1000) });
     }
+
     if (this.state.count === 0) {
       let count;
       if (this.props.groupTemplate || this.props.mobilityTemplate) {

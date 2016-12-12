@@ -36,6 +36,12 @@
     // background-repeat: repeat;
     @include clearfix;
 
+    &.strobe {
+      animation: strobe 200ms steps(1,end) infinite;
+      transition:flex .3s;
+      animation-play-state: running;
+    }
+
     .timer-name {
       color: $color-primary-1;
       font-size: 1.5rem;
@@ -109,4 +115,10 @@
   .active-timer-container {
     width: 75%;
   }
+}
+
+@keyframes strobe {
+  background-color: $color-complement-0;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
