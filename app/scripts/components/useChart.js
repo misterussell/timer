@@ -7,9 +7,9 @@ export default React.createClass({
       <LineChart
         data={ this.props.data }
         className="use-chart"
-        width={600} height={300}
-        margin={{top: 5, right: 30, left: 20, bottom: 5}} >
-        <XAxis dataKey="date" padding={{left: 30, right: 30}} />
+        width={350} height={200}
+        margin={{top: 5, right: 30, left: 5, bottom: 5}} >
+        <XAxis dataKey="date" padding={{left: 10, right: 10}} />
         <YAxis/>
         <CartesianGrid strokeDasharray="3 3"/>
         <Tooltip/>

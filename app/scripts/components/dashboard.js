@@ -111,12 +111,7 @@ export default React.createClass({
           <h2>Timer Stats per Day</h2>
           <UseChart data={ this.state.stats.useByDate } />
         </li>
-        <li><button onClick={ this.handleClick }>Testing settings</button></li>
       </ul>
     );
-  },
-  handleClick(e) {
-    e.preventDefault();
-    console.log(store.timerStats.useByType());
   }
 });
