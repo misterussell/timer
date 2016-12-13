@@ -1,5 +1,4 @@
 import React from 'react';
-import TGroup from 'react-addons-css-transition-group';
 
 import { browserHistory } from 'react-router';
 
@@ -85,6 +84,10 @@ export default React.createClass({
 
     if (!this.state.minimize) {
       timer = (
+        <TGroup
+          transitionName="load"
+          transitionEnterTimeout={ 2000 }
+          transitionLeaveTimeout={ 2000 }>
         <div className="active-timer">
         <h1 className="timer-name"> { this.state.timer.name } </h1>
         <div className="time-values">
@@ -104,6 +107,7 @@ export default React.createClass({
           owner={ this.state.timer.ownerId } />
         }
       </div>
+      </TGroup>
       );
     }
 
@@ -125,7 +129,6 @@ export default React.createClass({
         this.state.timer.objectId,
         this.minToMill(this.state.timer.timerValue),
         'complete');
-      this.setState({ strobe: true });
       return store.timer.completeTimer(this.state.timer.notificationSound);
     }
   },

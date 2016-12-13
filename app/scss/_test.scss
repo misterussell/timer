@@ -1,0 +1,20 @@
+.parent {
+  position: relative;
+}
+
+.test-enter {
+  background: blue;
+}
+
+.test-enter-active {
+  transition: 2s fade-in all;
+}
+
+.test-leave {
+  opacity: 1;
+}
+
+.test-leave-active {
+  opacity: 0;
+  transition: .2s fade-in all;
+}
