@@ -61,7 +61,6 @@ export default Backbone.Collection.extend({
   loadTimers () {
   if (this.length > 0) {
       console.log('no fetch needed');
-      return null;
   }
   // } else {
     let download = new Promise((resolve, reject) => {

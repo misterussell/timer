@@ -3,7 +3,7 @@
   @include clearfix;
 
   .logo {
-    width: 2.25rem;
+    width: 5rem;
     margin: .25rem;
   }
 
@@ -23,7 +23,7 @@
         background: $color-primary-1;
       }
     }
-    
+
   &.width-control {
     a {
       width: 50%;
