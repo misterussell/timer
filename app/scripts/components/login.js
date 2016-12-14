@@ -7,8 +7,8 @@ export default React.createClass({
   render() {
     return (
       <form className="login-register" onSubmit={this.handleSubmit}>
-        <input type="email" ref="email" className="new-form-input" id="email" placeholder="Email" defaultValue="maxruss.87@gmail.com"/>
-        <input type="password" ref="pw" className="new-form-input" id="pw" placeholder="Password" defaultValue="YtCtFZMW"/>
+        <input type="email" ref="email" className="new-form-input" id="email" placeholder="Email" />
+        <input type="password" ref="pw" className="new-form-input" id="pw" placeholder="Password" />
         <input type="submit" id="submit" name="submit" value="Submit" />
         <Link to="forgotPassword">Forgot Password? Click here</Link>
       </form>
